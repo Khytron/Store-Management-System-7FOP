@@ -21,6 +21,18 @@ public class Employer {
         this.employerRole = employerRole;
         this.employerPassword = employerPassword;
 
+    }
 
+      public String getEmployerId(){
+        return this.employerId;
+    }
+    public String getEmployerName(){
+        return this.employerName;
+    }
+    public String getEmployerRole(){
+        return this.employerRole;
+    }
+    public String getEmployerPassword(){
+        return this.employerPassword;
     }
 }

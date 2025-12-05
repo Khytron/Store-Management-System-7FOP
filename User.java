@@ -1,9 +1,9 @@
 
 public class User {
     //Attributes
-    public String userId;
-    public String userName;
-    public String userRole;
+    private String userId;
+    private String userName;
+    private String userRole;
     private String userPassword;
     public boolean isEmployee = false;
     public boolean isEmployer = false;
@@ -21,10 +21,11 @@ public class User {
         if (!this.isLogged && this.userId != null) { 
             this.isLogged = true; 
             // Check if its an employee or employer
-            if (Employer.employerIds.contains(this.userId))
+            if (this.userRole.equalsIgnoreCase("Employer") || this.userRole.equalsIgnoreCase("Manager")) {
                 this.isEmployer = true;
-            else
+            } else {
                 this.isEmployee = true;
+            }
         }
     }
 
@@ -36,8 +37,24 @@ public class User {
             this.userRole = null;
             this.userPassword = null;
             this.isEmployee = false;
-            this.isEmployer = false;
-            
+            this.isEmployer = false; 
         }
+    }
+
+    public void greetUser(){
+        System.out.println("Welcome, " + this.userName);
+    }
+
+    public String getUserId(){
+        return this.userId;
+    }
+    public String getUserName(){
+        return this.userName;
+    }
+    public String getUserRole(){
+        return this.userRole;
+    }
+    public String getUserPassword(){
+        return this.userPassword;
     }
 }
