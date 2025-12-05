@@ -1,8 +1,15 @@
+package src.service;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import src.model.Employee;
+import src.model.Employer;
+import src.model.User;
+import src.util.FilePath;
+import src.util.Methods;
 
 public class UserManager {
     private User loggedInUser;

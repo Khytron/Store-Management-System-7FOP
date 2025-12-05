@@ -1,4 +1,8 @@
+package src;
 import java.util.*;
+
+import src.model.User;
+import src.service.UserManager;
 
 
 
@@ -56,7 +60,7 @@ class StoreManagementApp {
                         loggedInUser = null;
                         break;
                     } else {
-                        System.out.println("Invalid choice.");
+                        System.out.println("\nInvalid choice.");
                     }
                 }
                 

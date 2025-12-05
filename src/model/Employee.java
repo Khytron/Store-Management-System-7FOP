@@ -1,3 +1,4 @@
+package src.model;
 public class Employee {
     // Attributes
     private String employeeId;
