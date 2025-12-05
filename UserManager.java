@@ -87,8 +87,9 @@ public class UserManager {
         //     System.out.println(); }
 
         // User input
+        System.out.println("Type 'exit' to exit the program.\n");
         System.out.println("=== Employee Login ===");
-        System.out.println("Type 'exit' to exit the program.");
+        
         System.out.print("Enter User ID: ");
         String userId = input.next();
         System.out.print("Enter Password: ");
