@@ -1,4 +1,4 @@
-package src.model;
+package model;
 public class Employee {
     // Attributes
     private String employeeId;

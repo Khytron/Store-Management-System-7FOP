@@ -1,8 +1,7 @@
-package src;
 import java.util.*;
 
-import src.model.User;
-import src.service.UserManager;
+import model.User;
+import service.UserManager;
 
 
 
