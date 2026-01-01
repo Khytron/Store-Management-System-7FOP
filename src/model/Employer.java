@@ -1,6 +1,10 @@
 package model;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import util.FilePath;
 
 public class Employer {
     // Attributes
@@ -10,10 +14,24 @@ public class Employer {
     private String employerPassword;
     public static List<String> employerIds = new ArrayList<>();
     
-    // Lists of employer ids
     static {
-        employerIds.add("C6001");
-        // add more here ....
+        loadEmployerIds();
+    }
+
+    private static void loadEmployerIds() {
+        try (BufferedReader br = new BufferedReader(new FileReader(FilePath.employeeDataPath))) {
+            br.readLine(); // skip header
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] arr = line.split(",");
+                String role = arr[2];
+                if (role.equalsIgnoreCase("Employer") || role.equalsIgnoreCase("Manager") || role.equalsIgnoreCase("Owner")) {
+                    employerIds.add(arr[0]);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Employer(String employerId, String employerName, String employerRole, String employerPassword){
@@ -24,7 +42,7 @@ public class Employer {
 
     }
 
-      public String getEmployerId(){
+    public String getEmployerId(){
         return this.employerId;
     }
     public String getEmployerName(){

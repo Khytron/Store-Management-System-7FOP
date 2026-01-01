@@ -54,7 +54,7 @@ public class UserManager {
             // Check if its an employee or employer
             if (Employer.employerIds.contains(employeeId)){
                 // Its an employer
-                Employer newEmployer = new Employer(employeeId, employeeName, employeeRole, employeePassword);
+               Employer newEmployer = new Employer(employeeId, employeeName, employeeRole, employeePassword);
                 // Add it to employer list
                 employerList.add(newEmployer);
             } else {
@@ -64,7 +64,7 @@ public class UserManager {
                 employeeList.add(newEmployee);
             }
         }
-    }
+    } 
 
     public void setLoggedInUser(User user) {
         user.login();
@@ -76,22 +76,11 @@ public class UserManager {
     }
 
     public boolean isLoggedIn() {
-        return loggedInUser != null &&loggedInUser.isLogged;
+        return loggedInUser != null && loggedInUser.isLogged;
     }
 
 
     public User attemptLogin(Scanner input){
-        // Employee data example:
-        //  C6002 | Adam bin Abu | Full-time | d3e4f5 
-        // Employee ID | Employee Name | Role | Password
-
-        // Print out the data (test)
-        // for (int i = 0; i < employeeList.size(); i++){
-        //     System.out.print(employeeList.get(i).getEmployeeId() + " | ");
-        //     System.out.print(employeeList.get(i).getEmployeeName() + " | ");
-        //     System.out.print(employeeList.get(i).getEmployeeRole() + " | ");
-        //     System.out.print(employeeList.get(i).getEmployeePassword() + " | ");
-        //     System.out.println(); }
 
         // User input
         System.out.println("Type 'exit' to exit the program.\n");
@@ -119,6 +108,7 @@ public class UserManager {
                 userValid = true;
                 userName = employeeList.get(i).getEmployeeName();
                 userRole = employeeList.get(i).getEmployeeRole();
+                break;
             }
         }
 
@@ -131,6 +121,7 @@ public class UserManager {
                 userValid = true;
                 userName = employerList.get(i).getEmployerName();
                 userRole = employerList.get(i).getEmployerRole();
+                break;
             }
         }
 
@@ -154,15 +145,16 @@ public class UserManager {
 
     public void registerNewEmployee(Scanner input){
         System.out.println("=== Register New Employee ===");
-        System.out.print("Enter Employee Name: ");
-        String employeeName = input.nextLine();
         System.out.print("Enter Employee ID: ");
         String employeeId = input.next();
-        System.out.print("Set Password: ");
-        String employeePassword = input.next();
+        input.nextLine();
+        System.out.print("Enter Employee Name: ");
+        String employeeName = input.nextLine();
         System.out.print("Set Role: ");
         String employeeRole = input.next();
-
+        System.out.print("Set Password: ");
+        String employeePassword = input.next();
+        
         String[] newEmployeeData = {employeeId, employeeName, employeeRole, employeePassword};
 
         //Enter a new employee into the employee.csv file

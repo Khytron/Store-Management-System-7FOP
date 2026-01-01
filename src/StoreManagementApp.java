@@ -1,7 +1,9 @@
 import java.util.*;
 
 import model.User;
+import model.Outlet;
 import service.UserManager;
+import service.StockManager;
 
 
 
@@ -12,6 +14,8 @@ class StoreManagementApp {
     public static void main(String[] args){
 
         UserManager userManager = UserManager.getInstance();
+        StockManager stockManager = new StockManager();
+        Outlet currentOutlet;
 
         System.out.println("=== Store Management Operation System ===");
         System.out.println("============== By Group 7 ===============\n");
@@ -37,12 +41,14 @@ class StoreManagementApp {
                 }
                 
             }
+
+            currentOutlet = stockManager.loadOutletFromId(loggedInUser.getUserId().substring(0,3));
             
 
             if (loggedInUser.isEmployer){
                 String choice = "";
                 while (true) {
-                    System.out.print("\nPick One Option\n1. Register New Employee \n2. Logout \nYour choice: ");
+                    System.out.print("\nPick One Option\n1. Register New Employee\n2. Search Stock Info\n3. Perform Stock Count\n4. Logout \n\nYour choice: ");
                     choice = input.next();
                     
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
@@ -53,9 +59,16 @@ class StoreManagementApp {
                         break;
                     }
                     else if (choice.equals("2")){
+                        stockManager.searchStockInfo(input);
+                        continue;
+                    } 
+                    else if (choice.equals("3")){
+                        stockManager.performStockCount(input, currentOutlet.getOutletId());
+                        continue;
+                    }
+                    else if (choice.equals("4")){
                         userManager.attemptLogOut();
-                        loggedInUser.logout();
-                        System.out.println("\nYou have succcessfully logged out\n");
+                        System.out.println("\nYou have successfully logged out\n");
                         loggedInUser = null;
                         break;
                     } else {
@@ -67,22 +80,29 @@ class StoreManagementApp {
             {
                 String choice = "";
                 while (true){
-                    System.out.print("\nPick One Option\n1. Logout \nYour choice: ");
+                    System.out.print("\nPick One Option\n1. Search Stock Info \n2. Perform Stock Count\n3. Logout \n\nYour choice: ");
                     choice = input.next();
 
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
                     input.nextLine();
-                
+                    
                     if (choice.equals("1")){
+                        stockManager.searchStockInfo(input);
+                        continue;
+                    } else if (choice.equals("2")){
+                        stockManager.performStockCount(input, currentOutlet.getOutletId());
+                        continue;
+                    }
+                    else if (choice.equals("3")){
                         userManager.attemptLogOut();
-                        loggedInUser.logout();
                         loggedInUser = null;
-                        System.out.println("\nYou have succcessfully logged out\n");
+                        System.out.println("\nYou have successfully logged out\n");
                         
                         break;
                     }
+
                     else {
-                        System.out.println("Invalid choice.");
+                        System.out.println("\nInvalid choice.");
                     }
 
                 } 
@@ -92,9 +112,4 @@ class StoreManagementApp {
 
         input.close();
     }
-
-
-
-    
-
 }

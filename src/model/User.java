@@ -22,7 +22,7 @@ public class User {
         if (!this.isLogged && this.userId != null) { 
             this.isLogged = true; 
             // Check if its an employee or employer
-            if (this.userRole.equalsIgnoreCase("Employer") || this.userRole.equalsIgnoreCase("Manager")) {
+            if (this.userRole.equalsIgnoreCase("Employer") || this.userRole.equalsIgnoreCase("Manager") || this.userRole.equalsIgnoreCase("Owner")) {
                 this.isEmployer = true;
             } else {
                 this.isEmployee = true;
@@ -31,12 +31,8 @@ public class User {
     }
 
     public void logout(){
-        if (this.isLogged && this.userId != null) { 
+        if (this.isLogged) { 
             this.isLogged = false; 
-            this.userId = null;
-            this.userName = null;
-            this.userRole = null;
-            this.userPassword = null;
             this.isEmployee = false;
             this.isEmployer = false; 
         }
