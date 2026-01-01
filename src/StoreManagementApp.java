@@ -68,7 +68,7 @@ class StoreManagementApp {
                     }
                     else if (choice.equals("4")){
                         userManager.attemptLogOut();
-                        System.out.println("\nYou have successfully logged out\n");
+                        System.out.println("\n\u001B[31mLogging Out..\u001B[0m\n");
                         loggedInUser = null;
                         break;
                     } else {
@@ -96,7 +96,7 @@ class StoreManagementApp {
                     else if (choice.equals("3")){
                         userManager.attemptLogOut();
                         loggedInUser = null;
-                        System.out.println("\nYou have successfully logged out\n");
+                        System.out.println("\n\u001B[31mLogging Out..\u001B[0m\n");
                         
                         break;
                     }

@@ -39,7 +39,7 @@ public class User {
     }
 
     public void greetUser(){
-        System.out.println("Welcome, " + this.userName);
+        System.out.println("Welcome, \u001B[32m" + this.userName + "\u001B[0m");
     }
 
     public String getUserId(){

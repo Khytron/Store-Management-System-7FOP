@@ -83,7 +83,7 @@ public class UserManager {
     public User attemptLogin(Scanner input){
 
         // User input
-        System.out.println("Type 'exit' to exit the program.\n");
+        System.out.println("Press \u001B[31mCtrl+C\u001B[0m to exit the program.\n");
         System.out.println("=== Employee Login ===");
         
         System.out.print("Enter User ID: ");
@@ -127,7 +127,7 @@ public class UserManager {
 
         if (userValid){
             // Logging in
-            System.out.println("\nLogin Successful!");
+            System.out.println("\nLogin \u001B[32mSuccessful!\u001B[0m");
 
             User newUser = new User(userId, userName, userRole, userPassword);
             newUser.greetUser();
@@ -136,7 +136,7 @@ public class UserManager {
 
             
         } else {
-            System.out.println("\nLogin Failed : Invalid User ID or Password\n");
+            System.out.println("\nLogin \u001B[31mFailed : Invalid User ID or Password\u001B[0m\n");
             return null;
         }
 
@@ -161,7 +161,7 @@ public class UserManager {
         try(PrintWriter writer = new PrintWriter(new FileWriter(FilePath.employeeDataPath, true))){
             writer.println(String.join(",", newEmployeeData));
             
-            System.out.println("\nEmployee Successfully Registered! ");
+            System.out.println("\nEmployee \u001B[32mSuccessfully Registered! \u001B[0m");
         } catch (Exception e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
