@@ -1,0 +1,100 @@
+
+=== Stock In ===
+Date: 2026-01-01
+Time: 04:10 p.m.
+From: HQ (Service Center)
+To: C60 (Kuala Lumpur City Centre)
+Models Received:
+- DW2400-2 (Quantity: 2)
+Total Quantity: 2
+Employee in Charge: Muhammad Ikhmal Hakimie
+
+=== Stock In ===
+Date: 2026-01-01
+Time: 04:13 p.m.
+From: HQ (Service Center)
+To: C60 (Kuala Lumpur City Centre)
+Models Received:
+- DW2400-2 (Quantity: 5)
+Total Quantity: 5
+Employee in Charge: Muhammad Ikhmal Hakimie
+
+=== Stock Out ===
+Date: 2026-01-01
+Time: 04:18 p.m.
+From: C60 (Kuala Lumpur City Centre)
+To: HQ (Service Center)
+Models Transferred:
+- DW2400-2 (Quantity: 7)
+Total Quantity: 7
+Employee in Charge: Tan Guan Han
+
+=== Stock Out ===
+Date: 2026-01-01
+Time: 04:20 p.m.
+From: C60 (Kuala Lumpur City Centre)
+To: C67 (Pavillion Kuala Lumpur)
+Models Transferred:
+- SW2500-1 (Quantity: 5)
+Total Quantity: 5
+Employee in Charge: Muhammad Ikhmal Hakimie
+
+=== Stock In ===
+Date: 2026-01-01
+Time: 04:22 p.m.
+From: C67 (Pavillion Kuala Lumpur)
+To: C60 (Kuala Lumpur City Centre)
+Models Received:
+- SW2500-1 (Quantity: 4)
+Total Quantity: 4
+Employee in Charge: Muhammad Ikhmal Hakimie
+
+=== Stock In ===
+Date: 2026-01-01
+Time: 04:23 p.m.
+From: C60 (Kuala Lumpur City Centre)
+To: C60 (Kuala Lumpur City Centre)
+Models Received:
+- DW2300-1 (Quantity: 2)
+Total Quantity: 2
+Employee in Charge: Muhammad Ikhmal Hakimie
+
+=== Stock In ===
+Date: 2026-01-01
+Time: 04:23 p.m.
+From: C67 (Pavillion Kuala Lumpur)
+To: C60 (Kuala Lumpur City Centre)
+Models Received:
+- DW2300-1 (Quantity: 1)
+Total Quantity: 1
+Employee in Charge: Muhammad Ikhmal Hakimie
+
+=== Stock Out ===
+Date: 2026-01-01
+Time: 04:24 p.m.
+From: C60 (Kuala Lumpur City Centre)
+To: C67 (Pavillion Kuala Lumpur)
+Models Transferred:
+- DW2300-1 (Quantity: 2)
+Total Quantity: 2
+Employee in Charge: Muhammad Ikhmal Hakimie
+
+=== Stock In ===
+Date: 2026-01-01
+Time: 04:30 p.m.
+From: C61 (MidValley)
+To: C60 (Kuala Lumpur City Centre)
+Models Received:
+- DW2300-1 (Quantity: 1)
+Total Quantity: 1
+Employee in Charge: Muhammad Ikhmal Hakimie
+
+=== Stock Out ===
+Date: 2026-01-01
+Time: 04:30 p.m.
+From: C60 (Kuala Lumpur City Centre)
+To: C61 (MidValley)
+Models Transferred:
+- DW2300-1 (Quantity: 1)
+Total Quantity: 1
+Employee in Charge: Muhammad Ikhmal Hakimie

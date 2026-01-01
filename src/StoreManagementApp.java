@@ -48,7 +48,7 @@ class StoreManagementApp {
             if (loggedInUser.isEmployer){
                 String choice = "";
                 while (true) {
-                    System.out.print("\nPick One Option\n1. Register New Employee\n2. Search Stock Info\n3. Perform Stock Count\n4. Logout \n\nYour choice: ");
+                    System.out.print("\nPick One Option\n1. Register New Employee\n2. Search Stock Info\n3. Perform Stock Count\n4. Stock In\n5. Stock Out\n6. Logout \n\nYour choice: ");
                     choice = input.next();
                     
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
@@ -67,6 +67,14 @@ class StoreManagementApp {
                         continue;
                     }
                     else if (choice.equals("4")){
+                        stockManager.stockIn(input, currentOutlet.getOutletId(), loggedInUser.getUserName());
+                        continue;
+                    }
+                    else if (choice.equals("5")){
+                        stockManager.stockOut(input, currentOutlet.getOutletId(), loggedInUser.getUserName());
+                        continue;
+                    }
+                    else if (choice.equals("6")){
                         userManager.attemptLogOut();
                         System.out.println("\n\u001B[31mLogging Out..\u001B[0m\n");
                         loggedInUser = null;
@@ -80,7 +88,7 @@ class StoreManagementApp {
             {
                 String choice = "";
                 while (true){
-                    System.out.print("\nPick One Option\n1. Search Stock Info \n2. Perform Stock Count\n3. Logout \n\nYour choice: ");
+                    System.out.print("\nPick One Option\n1. Search Stock Info \n2. Perform Stock Count\n3. Stock In\n4. Stock Out\n5. Logout \n\nYour choice: ");
                     choice = input.next();
 
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
@@ -94,6 +102,14 @@ class StoreManagementApp {
                         continue;
                     }
                     else if (choice.equals("3")){
+                        stockManager.stockIn(input, currentOutlet.getOutletId(), loggedInUser.getUserName());
+                        continue;
+                    }
+                    else if (choice.equals("4")){
+                        stockManager.stockOut(input, currentOutlet.getOutletId(), loggedInUser.getUserName());
+                        continue;
+                    }
+                    else if (choice.equals("5")){
                         userManager.attemptLogOut();
                         loggedInUser = null;
                         System.out.println("\n\u001B[31mLogging Out..\u001B[0m\n");
@@ -105,7 +121,7 @@ class StoreManagementApp {
                         System.out.println("\nInvalid choice.");
                     }
 
-                } 
+                }
             }
         }
         

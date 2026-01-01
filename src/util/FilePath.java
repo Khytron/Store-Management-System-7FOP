@@ -5,4 +5,5 @@ public class FilePath {
     public static final String modelDataPath = "csv_database/model.csv";
     public static final String attendanceDataPath = "csv_database/attendance.csv";
     public static final String salesDataPath = "csv_database/sales.csv";
+    public static final String receiptsFolder = "receipts/";
 }
