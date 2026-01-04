@@ -4,18 +4,32 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import util.FilePath;
 
-public class SalesInfo {
+public class SalesManager {
     private String keyword;
     private List<String[]> SalesData = new ArrayList<>();
 
-    public SalesInfo(String keyword) {
-        this.keyword = keyword;
+    public SalesManager() {
     }
 
-    public boolean findSales(){
+    public void searchSalesInfo(Scanner input) {
+        System.out.println("\n=== Search Sales Information ===");
+        System.out.print("Search keyword: ");
+        String searchKeyword = input.next();
+        this.keyword = searchKeyword;
+        System.out.println("Searching...");
+
+        if (findSales()) {
+            displaySalesInfo();
+        } else {
+            System.out.println("No matching sales record found.");
+        }
+    }
+
+    private boolean findSales(){
         SalesData.clear();
         boolean isFound=false;
         try(BufferedReader br = new BufferedReader(new FileReader(FilePath.salesDataPath))) {
@@ -27,6 +41,7 @@ public class SalesInfo {
                     if (field.toLowerCase().contains(this.keyword.toLowerCase())) {
                         SalesData.add(fields);
                         isFound = true;
+                        break;
                     }
                 }
             }
@@ -36,7 +51,7 @@ public class SalesInfo {
         return isFound;
     }
 
-    public String getEmployeeName(String employeeID){
+    private String getEmployeeName(String employeeID){
         try(BufferedReader br = new BufferedReader(new FileReader(FilePath.employeeDataPath))) {
             String firstLine = br.readLine(); // Skip header
             String line;
@@ -52,7 +67,7 @@ public class SalesInfo {
         return "Unknown Employee";
     }
 
-    public void dislpaySalesInfo(){
+    private void displaySalesInfo(){
         for(String[] salesData : SalesData){
             System.out.println("\nSales Record Found:");
         
