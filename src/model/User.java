@@ -1,5 +1,7 @@
 package model;
 
+import util.Methods;
+
 public class User {
     //Attributes
     private String userId;
@@ -22,7 +24,7 @@ public class User {
         if (!this.isLogged && this.userId != null) { 
             this.isLogged = true; 
             // Check if its an employee or employer
-            if (this.userRole.equalsIgnoreCase("Employer") || this.userRole.equalsIgnoreCase("Manager") || this.userRole.equalsIgnoreCase("Owner")) {
+            if (Methods.isEmployerRole(this.userRole)) {
                 this.isEmployer = true;
             } else {
                 this.isEmployee = true;

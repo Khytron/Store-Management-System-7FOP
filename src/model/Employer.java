@@ -1,10 +1,9 @@
 package model;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
 import util.FilePath;
+import util.Methods;
 
 public class Employer {
     // Attributes
@@ -19,18 +18,20 @@ public class Employer {
     }
 
     private static void loadEmployerIds() {
-        try (BufferedReader br = new BufferedReader(new FileReader(FilePath.employeeDataPath))) {
-            br.readLine(); // skip header
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] arr = line.split(",");
-                String role = arr[2];
-                if (role.equalsIgnoreCase("Employer") || role.equalsIgnoreCase("Manager") || role.equalsIgnoreCase("Owner")) {
-                    employerIds.add(arr[0]);
-                }
+        List<List<String>> employeeData = Methods.readCsvFile(FilePath.employeeDataPath);
+        
+        // Remove header
+        if (!employeeData.isEmpty())
+            employeeData.remove(0);
+        
+        employerIds.clear();
+        
+        for (List<String> employee : employeeData) {
+            String id = employee.get(0);
+            String role = employee.get(2);
+            if (Methods.isEmployerRole(role)) {
+                employerIds.add(id);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
