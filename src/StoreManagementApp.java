@@ -60,7 +60,7 @@ class StoreManagementApp {
 
                     if (choice.equals("1")){
                         userManager.registerNewEmployee(input);
-                        break;
+                        continue;
                     }
                     else if (choice.equals("2")){
                         stockManager.searchStockInfo(input);
@@ -82,13 +82,7 @@ class StoreManagementApp {
                         continue;
                     }
                     else if (choice.equals("7")){
-                        System.out.print("\n1. Clock In\n2. Clock Out\nChoice: ");
-                        String clockChoice = input.nextLine();
-                        if (clockChoice.equals("1")){
-                            attendanceManager.clockIn(loggedInUser.getUserId(), currentOutlet.getOutletId());
-                        }else if (clockChoice.equals("2")){
-                            attendanceManager.clockOut(loggedInUser.getUserId(), currentOutlet.getOutletId());
-                        }
+                        handleClockInOut(input, attendanceManager, loggedInUser.getUserId(), currentOutlet.getOutletId());
                         continue;
                     }
                     else if (choice.equals("8")){
@@ -115,7 +109,7 @@ class StoreManagementApp {
             {
                 String choice = "";
                 while (true){
-                    System.out.print("\nPick One Option\n1. Search Stock Information \n2. Search Sales Information\n3. Perform Stock Count\n4. Stock In\n5. Stock Out\n6.Clock In/Clock Out\n7. Logout \n\nYour choice: ");
+                    System.out.print("\nPick One Option\n1. Search Stock Information \n2. Search Sales Information\n3. Perform Stock Count\n4. Stock In\n5. Stock Out\n6. Clock In/Clock Out\n7. Logout \n\nYour choice: ");
                     choice = input.next();
 
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
@@ -142,15 +136,9 @@ class StoreManagementApp {
                         continue;
                     }
                     else if (choice.equals("6")){
-                        System.out.print("\n1. Clock In\n2. Clock Out\nChoice: ");
-                        String clockChoice = input.nextLine();
-                        if (clockChoice.equals("1")){
-                            attendanceManager.clockIn(loggedInUser.getUserId(), currentOutlet.getOutletId());
-                        } else if (clockChoice.equals("2")){
-                            attendanceManager.clockOut(loggedInUser.getUserId(), currentOutlet.getOutletId());
-                        }
+                        handleClockInOut(input, attendanceManager, loggedInUser.getUserId(), currentOutlet.getOutletId());
                         continue;
-                        }
+                    }
                     else if (choice.equals("7")){
                         userManager.attemptLogOut();
                         loggedInUser = null;
@@ -169,5 +157,16 @@ class StoreManagementApp {
         
 
         input.close();
+    }
+
+    // Helper method to handle Clock In/Clock Out menu
+    private static void handleClockInOut(Scanner input, AttendanceManager attendanceManager, String userId, String outletId) {
+        System.out.print("\n1. Clock In\n2. Clock Out\nChoice: ");
+        String clockChoice = input.nextLine();
+        if (clockChoice.equals("1")) {
+            attendanceManager.clockIn(userId, outletId);
+        } else if (clockChoice.equals("2")) {
+            attendanceManager.clockOut(userId, outletId);
+        }
     }
 }

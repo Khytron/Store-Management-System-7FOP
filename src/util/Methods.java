@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -70,5 +72,28 @@ public class Methods {
         }
         
         return fileName;
+    }
+
+    public static String timeDifference(String time1, String time2){
+        // 1. Parse the strings into LocalTime objects
+        // LocalTime.parse automatically understands "HH:mm" format
+        LocalTime t1 = LocalTime.parse(time1);
+        LocalTime t2 = LocalTime.parse(time2);
+
+        // 2. Calculate the difference
+        // We assume time2 is the start and time1 is the end (15:25 - 12:11)
+        Duration diff = Duration.between(t2, t1);
+
+        // 3. Convert difference to total minutes
+        long minutes = diff.toMinutes();
+
+        // 4. Convert minutes to decimal hours
+        // We divide by 60.0 (double) to ensure we get decimals, not integers
+        double hours = minutes / 60.0;
+
+        // 5. Format to 1 decimal place
+        String result = String.format("%.1f Hours", hours);
+
+        return result;
     }
 }

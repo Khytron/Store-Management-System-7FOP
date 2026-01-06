@@ -5,9 +5,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import util.FilePath;
+import util.Methods;
 
 public class AttendanceManager {
-        private static final String ATTENDANCE_FILE = "data/attendance.csv";
         private List<Attendance> attendanceRecords;
 
         public AttendanceManager() {
@@ -17,29 +18,80 @@ public class AttendanceManager {
 
         // Clock In
         public void clockIn(String employeeId, String outletCode) {
+            // Check if employee already clocked in without clocking out
+            if (hasOpenClockIn(employeeId)) {
+                System.out.println("\nYou have already clocked in. Please clock out first.");
+                return;
+            }
             Attendance record = new Attendance(employeeId, outletCode, "Clock In");
             attendanceRecords.add(record);
             saveAttendanceToFile();
-            System.out.println("\n✓ Clock In successful at " + record.getDate()+ " at " + record.getTime());
+            System.out.println("\n=== Attendance Clock In ===");
+            System.out.println("Employee ID: " + record.getEmployeeId());
+            System.out.println("Outlet: " + record.getOutletCode());
+            System.out.println("\nClock In \u001B[32mSuccessful\u001B[0m!\nDate: " + record.getDate()+ "\nTime: " + record.getTime());
         }
 
         // Clock Out
         public void clockOut(String employeeId, String outletCode) {
+            // Check if employee has clocked in first
+            if (!hasOpenClockIn(employeeId)) {
+                System.out.println("\nYou haven't clocked in yet. Please clock in first.");
+                return;
+            }
+            Attendance clockInRecord = getLatestClockIn(employeeId);
             Attendance record = new Attendance(employeeId, outletCode, "Clock Out");
             attendanceRecords.add(record);
             saveAttendanceToFile();
-            System.out.println("\n✓ Clock Out successful at " + record.getDate() + " at " + record.getTime());
+            System.out.println("\n=== Attendance Clock Out ===");
+            System.out.println("Employee ID: " + record.getEmployeeId());
+            System.out.println("Outlet: " + record.getOutletCode());
+            System.out.println("\nClock Out \u001B[32mSuccessful\u001B[0m!\nDate: " + record.getDate()+ "\nTime: " + record.getTime());
+            System.out.println("Total Hours Worked: " + Methods.timeDifference(record.getTime(),clockInRecord.getTime()));
+        }
+
+        // Check if employee has an open clock-in (clocked in but not out yet today)
+        private boolean hasOpenClockIn(String employeeId) {
+            String today = java.time.LocalDate.now()
+                    .format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            
+            for (int i = attendanceRecords.size()-1; i >= 0; i--){
+                Attendance att = attendanceRecords.get(i);
+                if (att.getEmployeeId().equals(employeeId) && att.getStatus().equals("Clock Out")){
+                    return false;
+                }
+                if (att.getEmployeeId().equals(employeeId) && att.getStatus().equals("Clock In") && att.getDate().equals(today)){
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        private Attendance getLatestClockIn(String employeeId){
+            String today = java.time.LocalDate.now()
+                    .format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+            // Loop backwards through all attendance record
+            for (int i = attendanceRecords.size()-1; i >= 0; i--){
+                Attendance att = attendanceRecords.get(i);
+                if (att.getEmployeeId().equals(employeeId) && att.getStatus().equals("Clock Out")){
+                    throw new IllegalArgumentException("Error: Trying to access unavailable open clock in for employee " + employeeId);
+                }
+                if (att.getEmployeeId().equals(employeeId) && att.getStatus().equals("Clock In") && att.getDate().equals(today)){
+                    return att;
+                }
+            }
+            throw new IllegalAccessError("Trying to get latest open clock in record that doesn't exist");
         }
 
         // Save to CSV
         private void saveAttendanceToFile() {
-            try {
-                // Create data directory if it doesn't exist
-                File file = new File(ATTENDANCE_FILE);
-                file.getParentFile().mkdirs();
+            // Create data directory if it doesn't exist
+            File file = new File(FilePath.attendanceDataPath);
+            file.getParentFile().mkdirs();
 
-                BufferedWriter writer = new BufferedWriter(new FileWriter(ATTENDANCE_FILE));
-
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FilePath.attendanceDataPath))) {
                 // Write header
                 writer.write("date,time,employeeId,outletCode,status\n");
 
@@ -53,8 +105,6 @@ public class AttendanceManager {
                             att.getStatus()
                     ));
                 }
-
-                writer.close();
             } catch (IOException e) {
                 System.out.println("Error saving attendance: " + e.getMessage());
             }
@@ -62,13 +112,12 @@ public class AttendanceManager {
 
         // Load from CSV
         private void loadAttendanceFromFile() {
-            try {
-                File file = new File(ATTENDANCE_FILE);
-                if (!file.exists()) {
-                    return; // File doesn't exist yet, that's okay
-                }
+            File file = new File(FilePath.attendanceDataPath);
+            if (!file.exists()) {
+                return; // File doesn't exist yet, that's okay
+            }
 
-                BufferedReader reader = new BufferedReader(new FileReader(ATTENDANCE_FILE));
+            try (BufferedReader reader = new BufferedReader(new FileReader(FilePath.attendanceDataPath))) {
                 String line = reader.readLine(); // Skip header
 
                 while ((line = reader.readLine()) != null) {
@@ -80,8 +129,6 @@ public class AttendanceManager {
                         attendanceRecords.add(att);
                     }
                 }
-
-                reader.close();
             } catch (IOException e) {
                 System.out.println("Error loading attendance: " + e.getMessage());
             }
