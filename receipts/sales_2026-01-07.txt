@@ -1,0 +1,31 @@
+
+=== Sales Receipt ===
+Date: 2026-01-07
+Time: 10:53 p.m.
+Customer Name: Che Ku
+Item(s) Purchased:
+- SW2500-1 x1 @ RM845 = RM845
+Transaction Method: Cash
+Subtotal: RM845
+Employee in Charge: Adam bin Abu
+
+=== Sales Receipt ===
+Date: 2026-01-07
+Time: 10:55 p.m.
+Customer Name: Ikhmal
+Item(s) Purchased:
+- DW2400-1 x2 @ RM599 = RM1198
+- DW2300-1 x1 @ RM399 = RM399
+Transaction Method: Debit Card
+Subtotal: RM1597
+Employee in Charge: Adam bin Abu
+
+=== Sales Receipt ===
+Date: 2026-01-07
+Time: 11:00 p.m.
+Customer Name: Ali Bin Abu
+Item(s) Purchased:
+- SW2400-2 x2 @ RM769 = RM1538
+Transaction Method: QR Transfer
+Subtotal: RM1538
+Employee in Charge: Muhammad Ikhmal Hakimie

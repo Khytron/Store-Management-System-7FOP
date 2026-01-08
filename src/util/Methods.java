@@ -40,7 +40,7 @@ public class Methods {
     public static String generateReceipt(String transactionType, String date, String time, 
                                          String fromId, String fromName, String toId, String toName,
                                          Map<String, Integer> modelItems, int totalQty, String employeeName) {
-        String fileName = "receipts_" + date + ".txt";
+        String fileName = "stockmovements_" + date + ".txt";
         String filePath = FilePath.receiptsFolder + fileName;
         
         // Create receipts folder if it doesn't exist
@@ -65,6 +65,47 @@ public class Methods {
         receipt.append("Employee in Charge: ").append(employeeName).append("\n");
         
         // Append to file (same day receipts go to same file)
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath, true))) {
+            writer.print(receipt.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return fileName;
+    }
+
+    public static String generateSalesReceipt(String date, String time, String customerName,
+                                              Map<String, int[]> items, String transactionMethod,
+                                              int subtotal, String employeeName) {
+        String fileName = "sales_" + date + ".txt";
+        String filePath = FilePath.receiptsFolder + fileName;
+        
+        // Create receipts folder if it doesn't exist
+        File folder = new File(FilePath.receiptsFolder);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+        
+        StringBuilder receipt = new StringBuilder();
+        receipt.append("\n=== Sales Receipt ===\n");
+        receipt.append("Date: ").append(date).append("\n");
+        receipt.append("Time: ").append(time).append("\n");
+        receipt.append("Customer Name: ").append(customerName).append("\n");
+        receipt.append("Item(s) Purchased:\n");
+        
+        for (Map.Entry<String, int[]> entry : items.entrySet()) {
+            String model = entry.getKey();
+            int qty = entry.getValue()[0];
+            int unitPrice = entry.getValue()[1];
+            receipt.append("- ").append(model).append(" x").append(qty)
+                   .append(" @ RM").append(unitPrice).append(" = RM").append(qty * unitPrice).append("\n");
+        }
+        
+        receipt.append("Transaction Method: ").append(transactionMethod).append("\n");
+        receipt.append("Subtotal: RM").append(subtotal).append("\n");
+        receipt.append("Employee in Charge: ").append(employeeName).append("\n");
+        
+        // Append to file (same day sales go to same file)
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath, true))) {
             writer.print(receipt.toString());
         } catch (IOException e) {

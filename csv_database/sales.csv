@@ -1,4 +1,5 @@
 SaleID,EmployeeID,ModelName,ModelQuantity,CustomerName,TransactionMethod,TotalPrice,Date,Time
-S01,C6001,SW2500-1,1,Zikri Bin Abdullah,Credit Card,845,13-10-25,2:50 p.m.
-S02,C6013,DW2400-3,2,Ahmad Bin Saleh,Cash,1138,29-10-25,11:50 a.m.
-S03,C6005,SW2500-4,1,Amin Bin Saleh,QR Code,825,11-11-25,6:40 p.m.
+
+S01,C6002,SW2500-1,1,Che Ku,Cash,845,07-01-26,10:53 p.m.
+S02,C6002,DW2400-1;DW2300-1,3,Ikhmal,Debit Card,1597,07-01-26,10:55 p.m.
+S03,C6013,SW2400-2,2,Ali Bin Abu,QR Transfer,1538,07-01-26,11:00 p.m.
