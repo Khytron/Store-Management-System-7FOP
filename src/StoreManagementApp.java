@@ -7,6 +7,7 @@ import service.UserManager;
 import service.StockManager;
 import service.SalesManager;
 import service.EditManager;
+import service.PerformanceManager;
 
 
 
@@ -21,6 +22,7 @@ class StoreManagementApp {
         SalesManager salesManager = new SalesManager();
         AttendanceManager attendanceManager = new AttendanceManager();
         EditManager editManager = new EditManager();
+        PerformanceManager performanceManager = new PerformanceManager();
         Outlet currentOutlet;
 
         System.out.println("=== Store Management Operation System ===");
@@ -54,7 +56,7 @@ class StoreManagementApp {
             if (loggedInUser.isEmployer){
                 String choice = "";
                 while (true) {
-                    System.out.print("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Record New Sale\n5. Perform Stock Count\n6. Stock In\n7. Stock Out\n8. Edit Information\n9. Clock In/Clock Out\n10. View Attendance \n11. Logout \n\nYour choice: ");
+                    System.out.print("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Record New Sale\n5. Perform Stock Count\n6. Stock In\n7. Stock Out\n8. Edit Information\n9. Employee Performance Metrics\n10. Clock In/Clock Out\n11. View Attendance \n12. Logout \n\nYour choice: ");
                     choice = input.next();
                     
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
@@ -92,10 +94,14 @@ class StoreManagementApp {
                         continue;
                     }
                     else if (choice.equals("9")){
-                        handleClockInOut(input, attendanceManager, loggedInUser.getUserId(), currentOutlet.getOutletId());
+                        performanceManager.viewPerformanceMetrics(input);
                         continue;
                     }
                     else if (choice.equals("10")){
+                        handleClockInOut(input, attendanceManager, loggedInUser.getUserId(), currentOutlet.getOutletId());
+                        continue;
+                    }
+                    else if (choice.equals("11")){
                         System.out.print("\n1. View Employee Attendance\n2. View Today's Attendance\nChoice: ");
                         String viewChoice = input.nextLine();
                         if (viewChoice.equals("1")){
@@ -105,7 +111,7 @@ class StoreManagementApp {
                         }
                         continue;
                     }
-                    else if (choice.equals("11")){
+                    else if (choice.equals("12")){
                         userManager.attemptLogOut();
                         System.out.println("\n\u001B[31mLogging Out..\u001B[0m\n");
                         loggedInUser = null;
@@ -115,7 +121,7 @@ class StoreManagementApp {
                     }
                 }
                 
-            } else // User is employee 
+            } else // User is employee
             {
                 String choice = "";
                 while (true){

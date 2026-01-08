@@ -107,6 +107,13 @@ Role detection: `Methods.isEmployerRole()` checks if role is "Employer", "Manage
 - Edit Sales: Search by date + customer name, edit any field (name, model, quantity, total, transaction method)
 - Updates respective CSV files directly
 
+### 9. Employee Performance Metrics (PerformanceManager) - Manager Only
+- Enter date range (dd-MM-yy format)
+- Calculates total sales and transaction count per employee
+- Displays ranked list (highest to lowest sales)
+- Saves results to employee-performance-metrics.csv
+- Restricted to employer/manager accounts only
+
 ---
 
 ## Data Files
@@ -149,7 +156,7 @@ All data persisted in CSV files under `csv_database/`. Read with `Methods.readCs
 
 ## Menu Structure
 
-### Employer Menu (11 options)
+### Employer Menu (12 options)
 1. Register New Employee
 2. Search Stock Information
 3. Search Sales Information
@@ -158,9 +165,10 @@ All data persisted in CSV files under `csv_database/`. Read with `Methods.readCs
 6. Stock In
 7. Stock Out
 8. Edit Information
-9. Clock In/Clock Out
-10. View Attendance
-11. Logout
+9. Employee Performance Metrics
+10. Clock In/Clock Out
+11. View Attendance
+12. Logout
 
 ### Employee Menu (9 options)
 1. Search Stock Information

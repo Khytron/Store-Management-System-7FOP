@@ -147,6 +147,9 @@ public class SalesManager {
         // Save to sales.csv (one row per model)
         saveSalesToCsv(saleId, employeeId, itemsPurchased, customerName, transactionMethod, subtotal, csvDateStr, timeStr);
         
+        // Update employee performance metrics
+        updatePerformanceMetrics(employeeId, employeeName, subtotal);
+        
         System.out.println("\nTransaction \u001B[32msuccessful.\u001B[0m");
         System.out.println("Sale recorded \u001B[32msuccessfully.\u001B[0m");
         System.out.println("Model quantities updated \u001B[32msuccessfully.\u001B[0m");
@@ -310,5 +313,56 @@ public class SalesManager {
             System.out.println("Status: Transaction Verified.");
         }
         
+    }
+
+    private void updatePerformanceMetrics(String employeeId, String employeeName, int saleAmount) {
+        List<List<String>> performanceData = Methods.readCsvFile(FilePath.performanceDataPath);
+        
+        // Check if file is empty or only has header
+        if (performanceData.isEmpty()) {
+            performanceData.add(List.of("EmployeeID", "EmployeeName", "TotalSalesAmount", "NumberOfTransactions"));
+        }
+        
+        // Find existing employee record
+        int employeeRowIndex = -1;
+        for (int i = 1; i < performanceData.size(); i++) {
+            if (performanceData.get(i).size() >= 1 && performanceData.get(i).get(0).equals(employeeId)) {
+                employeeRowIndex = i;
+                break;
+            }
+        }
+        
+        if (employeeRowIndex != -1) {
+            // Update existing record
+            List<String> row = performanceData.get(employeeRowIndex);
+            int currentTotal = Integer.parseInt(row.get(2));
+            int currentCount = Integer.parseInt(row.get(3));
+            
+            List<String> updatedRow = new ArrayList<>();
+            updatedRow.add(employeeId);
+            updatedRow.add(employeeName);
+            updatedRow.add(String.valueOf(currentTotal + saleAmount));
+            updatedRow.add(String.valueOf(currentCount + 1));
+            
+            performanceData.set(employeeRowIndex, updatedRow);
+        } else {
+            // Add new record
+            List<String> newRow = new ArrayList<>();
+            newRow.add(employeeId);
+            newRow.add(employeeName);
+            newRow.add(String.valueOf(saleAmount));
+            newRow.add("1");
+            
+            performanceData.add(newRow);
+        }
+        
+        // Write back to CSV
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FilePath.performanceDataPath))) {
+            for (List<String> row : performanceData) {
+                writer.println(String.join(",", row));
+            }
+        } catch (IOException e) {
+            System.out.println("Error updating performance metrics: " + e.getMessage());
+        }
     }
 }
