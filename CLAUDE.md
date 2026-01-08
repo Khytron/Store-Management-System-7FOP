@@ -114,6 +114,12 @@ Role detection: `Methods.isEmployerRole()` checks if role is "Employer", "Manage
 - Saves results to employee-performance-metrics.csv
 - Restricted to employer/manager accounts only
 
+### 10. Filter and Sort Sales History (SalesManager)
+- Filter by date range (dd-MM-yy format)
+- Sort options: Date (asc/desc), Amount (low/high), Customer Name (A-Z/Z-A)
+- Displays tabular format with all transaction details
+- Shows total transactions and cumulative sales
+
 ---
 
 ## Data Files
@@ -156,30 +162,32 @@ All data persisted in CSV files under `csv_database/`. Read with `Methods.readCs
 
 ## Menu Structure
 
-### Employer Menu (12 options)
+### Employer Menu (13 options)
 1. Register New Employee
 2. Search Stock Information
 3. Search Sales Information
+4. Filter/Sort Sales History
+5. Record New Sale
+6. Perform Stock Count
+7. Stock In
+8. Stock Out
+9. Edit Information
+10. Employee Performance Metrics
+11. Clock In/Clock Out
+12. View Attendance
+13. Logout
+
+### Employee Menu (10 options)
+1. Search Stock Information
+2. Search Sales Information
+3. Filter/Sort Sales History
 4. Record New Sale
 5. Perform Stock Count
 6. Stock In
 7. Stock Out
 8. Edit Information
-9. Employee Performance Metrics
-10. Clock In/Clock Out
-11. View Attendance
-12. Logout
-
-### Employee Menu (9 options)
-1. Search Stock Information
-2. Search Sales Information
-3. Record New Sale
-4. Perform Stock Count
-5. Stock In
-6. Stock Out
-7. Edit Information
-8. Clock In/Clock Out
-9. Logout
+9. Clock In/Clock Out
+10. Logout
 
 ---
 

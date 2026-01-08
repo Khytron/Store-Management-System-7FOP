@@ -56,7 +56,7 @@ class StoreManagementApp {
             if (loggedInUser.isEmployer){
                 String choice = "";
                 while (true) {
-                    System.out.print("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Record New Sale\n5. Perform Stock Count\n6. Stock In\n7. Stock Out\n8. Edit Information\n9. Employee Performance Metrics\n10. Clock In/Clock Out\n11. View Attendance \n12. Logout \n\nYour choice: ");
+                    System.out.print("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Filter/Sort Sales History\n5. Record New Sale\n6. Perform Stock Count\n7. Stock In\n8. Stock Out\n9. Edit Information\n10. Employee Performance Metrics\n11. Clock In/Clock Out\n12. View Attendance \n13. Logout \n\nYour choice: ");
                     choice = input.next();
                     
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
@@ -74,34 +74,38 @@ class StoreManagementApp {
                         continue;
                     }
                     else if (choice.equals("4")){
-                        salesManager.recordNewSale(input, currentOutlet.getOutletId(), loggedInUser.getUserId(), loggedInUser.getUserName());
+                        salesManager.filterAndSortSalesHistory(input);
                         continue;
                     }
                     else if (choice.equals("5")){
-                        stockManager.performStockCount(input, currentOutlet.getOutletId());
+                        salesManager.recordNewSale(input, currentOutlet.getOutletId(), loggedInUser.getUserId(), loggedInUser.getUserName());
                         continue;
                     }
                     else if (choice.equals("6")){
-                        stockManager.stockIn(input, currentOutlet.getOutletId(), loggedInUser.getUserName());
+                        stockManager.performStockCount(input, currentOutlet.getOutletId());
                         continue;
                     }
                     else if (choice.equals("7")){
-                        stockManager.stockOut(input, currentOutlet.getOutletId(), loggedInUser.getUserName());
+                        stockManager.stockIn(input, currentOutlet.getOutletId(), loggedInUser.getUserName());
                         continue;
                     }
                     else if (choice.equals("8")){
-                        handleEditInfo(input, editManager, currentOutlet.getOutletId());
+                        stockManager.stockOut(input, currentOutlet.getOutletId(), loggedInUser.getUserName());
                         continue;
                     }
                     else if (choice.equals("9")){
-                        performanceManager.viewPerformanceMetrics(input);
+                        handleEditInfo(input, editManager, currentOutlet.getOutletId());
                         continue;
                     }
                     else if (choice.equals("10")){
-                        handleClockInOut(input, attendanceManager, loggedInUser.getUserId(), currentOutlet.getOutletId());
+                        performanceManager.viewPerformanceMetrics(input);
                         continue;
                     }
                     else if (choice.equals("11")){
+                        handleClockInOut(input, attendanceManager, loggedInUser.getUserId(), currentOutlet.getOutletId());
+                        continue;
+                    }
+                    else if (choice.equals("12")){
                         System.out.print("\n1. View Employee Attendance\n2. View Today's Attendance\nChoice: ");
                         String viewChoice = input.nextLine();
                         if (viewChoice.equals("1")){
@@ -111,7 +115,7 @@ class StoreManagementApp {
                         }
                         continue;
                     }
-                    else if (choice.equals("12")){
+                    else if (choice.equals("13")){
                         userManager.attemptLogOut();
                         System.out.println("\n\u001B[31mLogging Out..\u001B[0m\n");
                         loggedInUser = null;
@@ -125,7 +129,7 @@ class StoreManagementApp {
             {
                 String choice = "";
                 while (true){
-                    System.out.print("\nPick One Option\n1. Search Stock Information \n2. Search Sales Information\n3. Record New Sale\n4. Perform Stock Count\n5. Stock In\n6. Stock Out\n7. Edit Information\n8. Clock In/Clock Out\n9. Logout \n\nYour choice: ");
+                    System.out.print("\nPick One Option\n1. Search Stock Information \n2. Search Sales Information\n3. Filter/Sort Sales History\n4. Record New Sale\n5. Perform Stock Count\n6. Stock In\n7. Stock Out\n8. Edit Information\n9. Clock In/Clock Out\n10. Logout \n\nYour choice: ");
                     choice = input.next();
 
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
@@ -140,30 +144,34 @@ class StoreManagementApp {
                         continue;
                     }
                     else if (choice.equals("3")){
-                        salesManager.recordNewSale(input, currentOutlet.getOutletId(), loggedInUser.getUserId(), loggedInUser.getUserName());
+                        salesManager.filterAndSortSalesHistory(input);
                         continue;
                     }
                     else if (choice.equals("4")){
+                        salesManager.recordNewSale(input, currentOutlet.getOutletId(), loggedInUser.getUserId(), loggedInUser.getUserName());
+                        continue;
+                    }
+                    else if (choice.equals("5")){
                         stockManager.performStockCount(input, currentOutlet.getOutletId());
                         continue;
                     } 
-                    else if (choice.equals("5")){
+                    else if (choice.equals("6")){
                         stockManager.stockIn(input, currentOutlet.getOutletId(), loggedInUser.getUserName());
                         continue;
                     }
-                    else if (choice.equals("6")){
+                    else if (choice.equals("7")){
                         stockManager.stockOut(input, currentOutlet.getOutletId(), loggedInUser.getUserName());
                         continue;
                     }
-                    else if (choice.equals("7")){
+                    else if (choice.equals("8")){
                         handleEditInfo(input, editManager, currentOutlet.getOutletId());
                         continue;
                     }
-                    else if (choice.equals("8")){
+                    else if (choice.equals("9")){
                         handleClockInOut(input, attendanceManager, loggedInUser.getUserId(), currentOutlet.getOutletId());
                         continue;
                     }
-                    else if (choice.equals("9")){
+                    else if (choice.equals("10")){
                         userManager.attemptLogOut();
                         loggedInUser = null;
                         System.out.println("\n\u001B[31mLogging Out..\u001B[0m\n");

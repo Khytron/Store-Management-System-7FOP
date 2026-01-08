@@ -365,4 +365,153 @@ public class SalesManager {
             System.out.println("Error updating performance metrics: " + e.getMessage());
         }
     }
+
+    public void filterAndSortSalesHistory(Scanner input) {
+        System.out.println("\n=== Filter and Sort Sales History ===");
+        System.out.print("Enter Start Date (dd-MM-yy): ");
+        String startDate = input.nextLine();
+        System.out.print("Enter End Date (dd-MM-yy): ");
+        String endDate = input.nextLine();
+
+        List<List<String>> allSalesData = Methods.readCsvFile(FilePath.salesDataPath);
+        
+        if (allSalesData.size() <= 1) {
+            System.out.println("No sales records found.");
+            return;
+        }
+
+        // Filter sales by date range
+        List<String[]> filteredSales = new ArrayList<>();
+        for (int i = 1; i < allSalesData.size(); i++) {
+            List<String> row = allSalesData.get(i);
+            if (row.size() >= 9) {
+                String saleDate = row.get(7);
+                if (isDateInRange(saleDate, startDate, endDate)) {
+                    filteredSales.add(row.toArray(new String[0]));
+                }
+            }
+        }
+
+        if (filteredSales.isEmpty()) {
+            System.out.println("No sales records found for the specified date range.");
+            return;
+        }
+
+        // Calculate total cumulative sales
+        int totalCumulativeSales = 0;
+        for (String[] sale : filteredSales) {
+            try {
+                totalCumulativeSales += Integer.parseInt(sale[6]);
+            } catch (NumberFormatException e) {
+                // Skip invalid entries
+            }
+        }
+
+        // Ask for sorting preference
+        System.out.println("\nSort by:");
+        System.out.println("1. Date (Ascending)");
+        System.out.println("2. Date (Descending)");
+        System.out.println("3. Amount (Lowest to Highest)");
+        System.out.println("4. Amount (Highest to Lowest)");
+        System.out.println("5. Customer Name (A-Z)");
+        System.out.println("6. Customer Name (Z-A)");
+        System.out.print("Choice: ");
+        String sortChoice = input.nextLine();
+
+        // Sort based on choice
+        switch (sortChoice) {
+            case "1": // Date Ascending
+                filteredSales.sort((a, b) -> compareDates(a[7], b[7]));
+                break;
+            case "2": // Date Descending
+                filteredSales.sort((a, b) -> compareDates(b[7], a[7]));
+                break;
+            case "3": // Amount Low to High
+                filteredSales.sort((a, b) -> {
+                    int amtA = Integer.parseInt(a[6]);
+                    int amtB = Integer.parseInt(b[6]);
+                    return Integer.compare(amtA, amtB);
+                });
+                break;
+            case "4": // Amount High to Low
+                filteredSales.sort((a, b) -> {
+                    int amtA = Integer.parseInt(a[6]);
+                    int amtB = Integer.parseInt(b[6]);
+                    return Integer.compare(amtB, amtA);
+                });
+                break;
+            case "5": // Customer Name A-Z
+                filteredSales.sort((a, b) -> a[4].compareToIgnoreCase(b[4]));
+                break;
+            case "6": // Customer Name Z-A
+                filteredSales.sort((a, b) -> b[4].compareToIgnoreCase(a[4]));
+                break;
+            default:
+                System.out.println("Invalid choice. Displaying unsorted.");
+        }
+
+        // Display results in tabular format
+        System.out.println("\n================================================================================");
+        System.out.println("                    Sales History (" + startDate + " to " + endDate + ")");
+        System.out.println("================================================================================");
+        System.out.printf("%-8s %-12s %-20s %-15s %-10s %-10s\n", 
+                          "SaleID", "Date", "Customer", "Model(s)", "Amount", "Method");
+        System.out.println("--------------------------------------------------------------------------------");
+
+        for (String[] sale : filteredSales) {
+            String saleId = sale[0];
+            String date = sale[7];
+            String customer = sale[4].length() > 18 ? sale[4].substring(0, 18) + ".." : sale[4];
+            String models = sale[2].length() > 13 ? sale[2].substring(0, 13) + ".." : sale[2];
+            String amount = "RM" + sale[6];
+            String method = sale[5].length() > 8 ? sale[5].substring(0, 8) + ".." : sale[5];
+
+            System.out.printf("%-8s %-12s %-20s %-15s %-10s %-10s\n", 
+                              saleId, date, customer, models, amount, method);
+        }
+
+        System.out.println("--------------------------------------------------------------------------------");
+        System.out.println("Total Transactions: " + filteredSales.size());
+        System.out.println("Total Cumulative Sales: RM" + totalCumulativeSales);
+        System.out.println("================================================================================");
+    }
+
+    private boolean isDateInRange(String date, String startDate, String endDate) {
+        try {
+            int[] dateParts = parseDate(date);
+            int[] startParts = parseDate(startDate);
+            int[] endParts = parseDate(endDate);
+
+            int dateValue = dateParts[2] * 10000 + dateParts[1] * 100 + dateParts[0];
+            int startValue = startParts[2] * 10000 + startParts[1] * 100 + startParts[0];
+            int endValue = endParts[2] * 10000 + endParts[1] * 100 + endParts[0];
+
+            return dateValue >= startValue && dateValue <= endValue;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private int[] parseDate(String date) {
+        String[] parts = date.split("-");
+        return new int[]{
+            Integer.parseInt(parts[0]),  // day
+            Integer.parseInt(parts[1]),  // month
+            Integer.parseInt(parts[2])   // year
+        };
+    }
+
+    private int compareDates(String date1, String date2) {
+        try {
+            int[] parts1 = parseDate(date1);
+            int[] parts2 = parseDate(date2);
+
+            int value1 = parts1[2] * 10000 + parts1[1] * 100 + parts1[0];
+            int value2 = parts2[2] * 10000 + parts2[1] * 100 + parts2[0];
+
+            return Integer.compare(value1, value2);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }
