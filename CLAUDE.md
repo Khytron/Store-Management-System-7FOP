@@ -102,6 +102,11 @@ Role detection: `Methods.isEmployerRole()` checks if role is "Employer", "Manage
 - Calculates total hours worked
 - View by employee ID or today's outlet attendance
 
+### 8. Edit Information (EditManager)
+- Edit Stock: Update model stock levels for current outlet
+- Edit Sales: Search by date + customer name, edit any field (name, model, quantity, total, transaction method)
+- Updates respective CSV files directly
+
 ---
 
 ## Data Files
@@ -144,7 +149,7 @@ All data persisted in CSV files under `csv_database/`. Read with `Methods.readCs
 
 ## Menu Structure
 
-### Employer Menu (10 options)
+### Employer Menu (11 options)
 1. Register New Employee
 2. Search Stock Information
 3. Search Sales Information
@@ -152,15 +157,34 @@ All data persisted in CSV files under `csv_database/`. Read with `Methods.readCs
 5. Perform Stock Count
 6. Stock In
 7. Stock Out
-8. Clock In/Clock Out
-9. View Attendance
-10. Logout
+8. Edit Information
+9. Clock In/Clock Out
+10. View Attendance
+11. Logout
 
-### Employee Menu (8 options)
-Same as Employer minus "Register New Employee" and "View Attendance" options
+### Employee Menu (9 options)
+1. Search Stock Information
+2. Search Sales Information
+3. Record New Sale
+4. Perform Stock Count
+5. Stock In
+6. Stock Out
+7. Edit Information
+8. Clock In/Clock Out
+9. Logout
 
 ---
 
 ## Dependencies
 - Pure Java (no external libraries)
 - Java 8+ (uses LocalDateTime, DateTimeFormatter)
+
+---
+
+## Development Notes
+
+**IMPORTANT**: Always remove `.class` files after compiling. They should not be committed to git.
+```powershell
+# Remove all .class files
+Get-ChildItem -Recurse -Filter "*.class" | Remove-Item -Force
+```

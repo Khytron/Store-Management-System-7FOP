@@ -71,7 +71,6 @@ public class SalesManager {
             // Find model and get price
             int unitPrice = -1;
             int availableStock = 0;
-            List<String> foundModelRow = null;
             
             for (List<String> row : modelData) {
                 if (row.get(0).equalsIgnoreCase(modelName)) {
@@ -79,7 +78,7 @@ public class SalesManager {
                     if (outletIndex != -1) {
                         availableStock = Integer.parseInt(row.get(outletIndex));
                     }
-                    foundModelRow = row;
+                    
                     modelName = row.get(0); // Use exact casing from CSV
                     break;
                 }
