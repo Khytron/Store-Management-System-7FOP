@@ -8,7 +8,6 @@ import service.StockManager;
 import service.SalesManager;
 import service.EditManager;
 import service.PerformanceManager;
-import java.util.Scanner;
 
 
 
