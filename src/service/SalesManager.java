@@ -1,5 +1,6 @@
 package service;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -383,16 +384,21 @@ public class SalesManager {
     }
 
     public void filterAndSortSalesHistory(Scanner input) {
+        /*
         System.out.println("\n=== Filter and Sort Sales History ===");
         System.out.print("Enter Start Date (dd-MM-yy): ");
         String startDate = input.nextLine();
         System.out.print("Enter End Date (dd-MM-yy): ");
         String endDate = input.nextLine();
+         */
+        String startDate = JOptionPane.showInputDialog("Enter Start Date (dd-MM-yy): ");
+        String endDate = JOptionPane.showInputDialog("Enter End Date (dd-MM-yy): ");
 
         List<List<String>> allSalesData = Methods.readCsvFile(FilePath.salesDataPath);
         
         if (allSalesData.size() <= 1) {
-            System.out.println("No sales records found.");
+            //System.out.println("No sales records found.");
+            JOptionPane.showMessageDialog(null, "No sales records found.", null, JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -409,7 +415,8 @@ public class SalesManager {
         }
 
         if (filteredSales.isEmpty()) {
-            System.out.println("No sales records found for the specified date range.");
+            //System.out.println("No sales records found for the specified date range.");
+            JOptionPane.showMessageDialog(null, "No sales records found for the specified date range.", null, JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -424,6 +431,7 @@ public class SalesManager {
         }
 
         // Ask for sorting preference
+        /*
         System.out.println("\nSort by:");
         System.out.println("1. Date (Ascending)");
         System.out.println("2. Date (Descending)");
@@ -433,6 +441,15 @@ public class SalesManager {
         System.out.println("6. Customer Name (Z-A)");
         System.out.print("Choice: ");
         String sortChoice = input.nextLine();
+         */
+        String sortChoice = JOptionPane.showInputDialog("Sort by:" +
+                        "\n1. Date (Ascending)" +
+                        "\n2. Date (Descending)" +
+                        "\n3. Amount (Lowest to Highest)" +
+                        "\n4. Amount (Highest to Lowest)" +
+                        "\n5. Customer Name (A-Z)" +
+                        "\n6. Customer Name (Z-A)" +
+                        "\nChoice: ");
 
         // Sort based on choice
         switch (sortChoice) {
@@ -463,16 +480,27 @@ public class SalesManager {
                 filteredSales.sort((a, b) -> b[4].compareToIgnoreCase(a[4]));
                 break;
             default:
-                System.out.println("Invalid choice. Displaying unsorted.");
+                //System.out.println("Invalid choice. Displaying unsorted.");
+                JOptionPane.showMessageDialog(null, "Invalid choice. Displaying unsorted...", null, JOptionPane.WARNING_MESSAGE);
         }
 
         // Display results in tabular format
+        /*
         System.out.println("\n================================================================================");
         System.out.println("                    Sales History (" + startDate + " to " + endDate + ")");
         System.out.println("================================================================================");
         System.out.printf("%-8s %-12s %-20s %-15s %-10s %-10s\n", 
                           "SaleID", "Date", "Customer", "Model(s)", "Amount", "Method");
         System.out.println("--------------------------------------------------------------------------------");
+         */
+        String OutputText1 = "<html><pre><br>================================================================================"
+                + "<br>                    Sales History (" + startDate + " to " + endDate + ")"
+                + "<br>================================================================================";
+        OutputText1 += String.format("<br>%-8s %-12s %-20s %-15s %-10s %-10s",
+                "SaleID", "Date", "Customer", "Model(s)", "Amount", "Method");
+        OutputText1 += "<br>--------------------------------------------------------------------------------";
+
+
 
         for (String[] sale : filteredSales) {
             String saleId = sale[0];
@@ -482,14 +510,26 @@ public class SalesManager {
             String amount = "RM" + sale[6];
             String method = sale[5].length() > 8 ? sale[5].substring(0, 8) + ".." : sale[5];
 
-            System.out.printf("%-8s %-12s %-20s %-15s %-10s %-10s\n", 
-                              saleId, date, customer, models, amount, method);
+            //System.out.printf("%-8s %-12s %-20s %-15s %-10s %-10s\n", saleId, date, customer, models, amount, method);
+            OutputText1 += String.format("<br>%-8s %-12s %-20s %-15s %-10s %-10s", saleId, date, customer, models, amount, method);
         }
-
+        /*
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println("Total Transactions: " + filteredSales.size());
         System.out.println("Total Cumulative Sales: RM" + totalCumulativeSales);
         System.out.println("================================================================================");
+         */
+        OutputText1 += "<br>--------------------------------------------------------------------------------" +
+                "<br>Total Transactions: " + filteredSales.size() +
+                "<br>Total Cumulative Sales: RM" + totalCumulativeSales +
+                "<br>================================================================================</pre></html>";
+
+        //Set font to a monospace font
+        Font monospacefont = new Font("Monospaced", Font.PLAIN, 12);
+        JLabel label = new JLabel(OutputText1);
+        label.setFont(monospacefont);
+
+        JOptionPane.showMessageDialog(null, label, "receipt", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private boolean isDateInRange(String date, String startDate, String endDate) {

@@ -136,7 +136,8 @@ public class UserManager {
 
         if (userValid){
             // Logging in
-            System.out.println("\nLogin \u001B[32mSuccessful!\u001B[0m");
+            //System.out.println("\nLogin \u001B[32mSuccessful!\u001B[0m");
+
 
             User newUser = new User(userId, userName, userRole, userPassword);
             newUser.greetUser();
