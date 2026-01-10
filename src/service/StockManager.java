@@ -158,43 +158,66 @@ public class StockManager {
     }
 
     public void performStockCount(Scanner input, String outletId) {
-        System.out.println("\n=== Stock Count === ");
+        //System.out.println("\n=== Stock Count === ");
+        //put at titles
 
         LocalDateTime now = LocalDateTime.now();
     
         DateTimeFormatter dateFT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFT = DateTimeFormatter.ofPattern("hh:mm a", Locale.ENGLISH);
 
-        System.out.println("Date: " + now.format(dateFT));
+        /* System.out.println("Date: " + now.format(dateFT));
         String timeString = now.format(timeFT).toLowerCase().replace("am", "a.m.").replace("pm", "p.m.");
-        System.out.println("Time: " + timeString);
+        System.out.println("Time: " + timeString); */
+        JOptionPane.showMessageDialog(null,
+                "Date: " + now.format(dateFT)
+        + "\nTime: " + now.format(timeFT).toLowerCase().replace("am", "a.m.").replace("pm", "p.m."),
+                null, JOptionPane.INFORMATION_MESSAGE);
 
         int totalModelsChecked = 0;
         int tallyCorrect = 0;
 
         for (Model model : models ){
-            System.out.print("\nModel: " + model.getModelId() + " - Counted: ");
-            int userCount = input.nextInt();
+            //System.out.print("\nModel: " + model.getModelId() + " - Counted: ");
+            //int userCount = input.nextInt();
+            int userCount = Integer.parseInt(JOptionPane.showInputDialog("\nModel: " + model.getModelId() + " - Counted: "));
             int actualStockCount = model.getStock(outletId);
-            System.out.println("Stock Record: " + actualStockCount);
+            //System.out.println("Stock Record: " + actualStockCount);
 
             if (userCount == actualStockCount){
-                System.out.println("\u001B[32m" + "Stock tally correct." +"\u001B[0m");
+                //System.out.println("\u001B[32m" + "Stock tally correct." +"\u001B[0m");
+                JOptionPane.showMessageDialog(null,
+                        "Stock Record: " + actualStockCount
+                        + "\nStock tally correct.",
+                        null, JOptionPane.INFORMATION_MESSAGE);
                 tallyCorrect++;
             } else {
-                System.out.println("\u001B[31m" + "! Mismatch detected (" + Math.abs(actualStockCount - userCount) + " unit difference)" + "\u001B[0m");
+                //System.out.println("\u001B[31m" + "! Mismatch detected (" + Math.abs(actualStockCount - userCount) + " unit difference)" + "\u001B[0m");
+                JOptionPane.showMessageDialog(null,
+                        "Stock Record: " + actualStockCount
+                        + "\n! Mismatch detected (" + Math.abs(actualStockCount - userCount) + " unit difference)",
+                        null, JOptionPane.WARNING_MESSAGE);
             }
 
             totalModelsChecked++;
-
         }
-
+        /*
         System.out.println("\nTotal Models Checked: " + totalModelsChecked);
         System.out.println("Tally Correct: " + tallyCorrect);
         System.out.println("Mismatches: " + (totalModelsChecked - tallyCorrect));
         System.out.println("Stock Count Completed.");
-        if (totalModelsChecked != tallyCorrect)
-            System.out.println("\u001B[31m" + "Warning: Please verify stock." + "\u001B[0m");
+         */
+        String tallyIncorrect = "";
+        if (totalModelsChecked != tallyCorrect) {
+            //System.out.println("\u001B[31m" + "Warning: Please verify stock." + "\u001B[0m");
+            tallyIncorrect = "\n!!! Warning: Please verify stock. !!!";
+        }
+        JOptionPane.showMessageDialog(null,
+                "\nTotal Models Checked: " + totalModelsChecked
+                + "\nTally Correct: " + tallyCorrect
+                + "\nMismatches: " + (totalModelsChecked - tallyCorrect)
+                + "\nStock Count Completed."
+                + tallyIncorrect, null, JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void stockIn(Scanner input, String currentOutletId, String employeeName) {

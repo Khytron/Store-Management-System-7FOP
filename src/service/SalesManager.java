@@ -28,7 +28,7 @@ public class SalesManager {
     }
 
     public void recordNewSale(Scanner input, String outletId, String employeeId, String employeeName) {
-        System.out.println("\n=== Record New Sale ===");
+        //System.out.println("\n=== Record New Sale ===");
         
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter dateFT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -39,13 +39,13 @@ public class SalesManager {
         String csvDateStr = now.format(csvDateFT);
         String timeStr = now.format(timeFT).toLowerCase().replace("am", "a.m.").replace("pm", "p.m.");
         
-        System.out.println("Date: " + dateStr);
+        /*System.out.println("Date: " + dateStr);
         System.out.println("Time: " + timeStr);
-        
         System.out.print("Customer Name: ");
-        String customerName = input.nextLine();
+        String customerName = input.nextLine(); */
+        String customerName = JOptionPane.showInputDialog("Date: " + dateStr + "\n Time: " + timeStr + "\nCustomer Name: ");
         
-        System.out.println("Item(s) Purchased:");
+        //System.out.println("Item(s) Purchased:");
         
         // Map to store model -> [quantity, unitPrice]
         Map<String, int[]> itemsPurchased = new LinkedHashMap<>();
@@ -68,8 +68,9 @@ public class SalesManager {
         }
         
         while (true) {
-            System.out.print("Enter Model: ");
-            String modelName = input.nextLine();
+            //System.out.print("Enter Model: ");
+            //String modelName = input.nextLine();
+            String modelName = JOptionPane.showInputDialog("Enter Model: "); //put title Item(s) Purchased
             
             // Find model and get price
             int unitPrice = -1;
@@ -88,30 +89,36 @@ public class SalesManager {
             }
             
             if (unitPrice == -1) {
-                System.out.println("Model not found. Please try again.");
+                //System.out.println("Model not found. Please try again.");
+                JOptionPane.showMessageDialog(null,"Model not found, please try again.", null, JOptionPane.WARNING_MESSAGE);
                 continue;
             }
             
-            System.out.print("Enter Quantity: ");
+            //System.out.print("Enter Quantity: ");
+
             int quantity;
             try {
-                quantity = Integer.parseInt(input.nextLine());
+                //quantity = Integer.parseInt(input.nextLine());
+                quantity = Integer.parseInt(JOptionPane.showInputDialog("Enter Quantity: "));
             } catch (NumberFormatException e) {
-                System.out.println("Invalid quantity.");
+                //System.out.println("Invalid quantity.");
+                JOptionPane.showMessageDialog(null, "Invalid quantity.", null, JOptionPane.WARNING_MESSAGE);
                 continue;
             }
             
             if (quantity <= 0) {
-                System.out.println("Invalid quantity.");
+                //System.out.println("Invalid quantity.");
+                JOptionPane.showMessageDialog(null, "Invalid quantity.", null, JOptionPane.WARNING_MESSAGE);
                 continue;
             }
             
             if (quantity > availableStock) {
-                System.out.println("Insufficient stock. Only " + availableStock + " available.");
+                //System.out.println("Insufficient stock. Only " + availableStock + " available.");
+                JOptionPane.showMessageDialog(null, "Insufficient stock. Only " + availableStock + " available.", null, JOptionPane.WARNING_MESSAGE);
                 continue;
             }
             
-            System.out.println("Unit Price: RM" + unitPrice);
+            //System.out.println("Unit Price: RM" + unitPrice);
             
             // Add to items purchased
             if (itemsPurchased.containsKey(modelName)) {
@@ -124,22 +131,27 @@ public class SalesManager {
             quantities.add(quantity);
             subtotal += quantity * unitPrice;
             
-            System.out.print("Are there more items purchased? (Y/N): ");
-            String more = input.nextLine().trim().toUpperCase();
+            //System.out.print("Are there more items purchased? (Y/N): ");
+            //String more = input.nextLine().trim().toUpperCase();
+            String more = JOptionPane.showInputDialog("Unit Price: RM" + unitPrice + "\n Are there more items purchased? (Y/N): ");
+            more = more.trim().toUpperCase();
             if (!more.equals("Y")) {
                 break;
             }
         }
         
         if (itemsPurchased.isEmpty()) {
-            System.out.println("No items added. Sale cancelled.");
+            //System.out.println("No items added. Sale cancelled.");
+            JOptionPane.showMessageDialog(null, "No items added. Sale cancelled.", null, JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        System.out.print("\nEnter transaction method: ");
-        String transactionMethod = input.nextLine();
+        //System.out.print("\nEnter transaction method: ");
+        //String transactionMethod = input.nextLine();
+        String transactionMethod = JOptionPane.showInputDialog("\nEnter transaction method: ");
         
-        System.out.println("Subtotal: RM" + subtotal);
+        //System.out.println("Subtotal: RM" + subtotal);
+        //JOptionPane'd below
         
         // Update stock in model.csv
         updateStockAfterSale(itemsPurchased, outletId);
@@ -153,14 +165,21 @@ public class SalesManager {
         // Update employee performance metrics
         updatePerformanceMetrics(employeeId, employeeName, subtotal);
         
-        System.out.println("\nTransaction \u001B[32msuccessful.\u001B[0m");
+        /*System.out.println("\nTransaction \u001B[32msuccessful.\u001B[0m");
         System.out.println("Sale recorded \u001B[32msuccessfully.\u001B[0m");
-        System.out.println("Model quantities updated \u001B[32msuccessfully.\u001B[0m");
+        System.out.println("Model quantities updated \u001B[32msuccessfully.\u001B[0m"); */
+
         
         // Generate receipt
         String receiptFile = Methods.generateSalesReceipt(dateStr, timeStr, customerName, 
                                                            itemsPurchased, transactionMethod, subtotal, employeeName);
-        System.out.println("Receipt generated: " + receiptFile);
+        //System.out.println("Receipt generated: " + receiptFile);
+        JOptionPane.showMessageDialog(null, "Subtotal: RM" + subtotal
+                + "\nTransaction successful."
+                + "\nSale recorded successfully."
+                + "\nModel quantities updated successfully."
+                + "\nReceipt generated: " + receiptFile, null, JOptionPane.INFORMATION_MESSAGE);
+        //JOptionPane.showMessageDialog(null, "Receipt generated: " + receiptFile, null, JOptionPane.INFORMATION_MESSAGE);
     }
     
     private String generateNextSaleId() {

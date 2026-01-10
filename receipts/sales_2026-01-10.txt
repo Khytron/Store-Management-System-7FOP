@@ -96,3 +96,14 @@ Item(s) Purchased:
 Transaction Method: Cash
 Subtotal: RM3076
 Employee in Charge: Ahmad Daniel Bin Isa
+
+=== Sales Receipt ===
+Date: 2026-01-10
+Time: 11:23 p.m.
+Customer Name: izuan
+Item(s) Purchased:
+- SW2500-1 x2 @ RM845 = RM1690
+- SW2400-1 x1 @ RM789 = RM789
+Transaction Method: BitCoin
+Subtotal: RM2479
+Employee in Charge: Che Ku Amir

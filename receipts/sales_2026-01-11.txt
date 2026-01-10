@@ -1,0 +1,31 @@
+
+=== Sales Receipt ===
+Date: 2026-01-11
+Time: 12:08 a.m.
+Customer Name: izuan
+Item(s) Purchased:
+- SW2500-1 x2 @ RM845 = RM1690
+Transaction Method: Bitcoin
+Subtotal: RM1690
+Employee in Charge: Che Ku Amir
+
+=== Sales Receipt ===
+Date: 2026-01-11
+Time: 12:20 a.m.
+Customer Name: test
+Item(s) Purchased:
+- DW2300-1 x1 @ RM399 = RM399
+- DW2400-1 x1 @ RM599 = RM599
+Transaction Method: SPayLater
+Subtotal: RM998
+Employee in Charge: Che Ku Amir
+
+=== Sales Receipt ===
+Date: 2026-01-11
+Time: 12:26 a.m.
+Customer Name: test1
+Item(s) Purchased:
+- DW2300-1 x1 @ RM399 = RM399
+Transaction Method: DuitNow
+Subtotal: RM399
+Employee in Charge: Che Ku Amir
