@@ -1,0 +1,98 @@
+
+=== Sales Receipt ===
+Date: 2026-01-10
+Time: 12:26 a.m.
+Customer Name: adam
+Item(s) Purchased:
+- DW2400-1 x1 @ RM599 = RM599
+Transaction Method: debit card
+Subtotal: RM599
+Employee in Charge: Ahmad Daniel Bin Isa
+
+=== Sales Receipt ===
+Date: 2026-01-10
+Time: 03:37 p.m.
+Customer Name: Afifi Furqan
+Item(s) Purchased:
+- DW2400-2 x2 @ RM599 = RM1198
+- SW2400-4 x1 @ RM729 = RM729
+Transaction Method: Atome 
+Subtotal: RM1927
+Employee in Charge: Ahmad Daniel Bin Isa
+
+=== Sales Receipt ===
+Date: 2026-01-10
+Time: 03:39 p.m.
+Customer Name: Farid Hakimi
+Item(s) Purchased:
+- DW2300-3 x3 @ RM349 = RM1047
+- SW2500-4 x1 @ RM825 = RM825
+- SW2500-1 x1 @ RM845 = RM845
+Transaction Method: Credit Card
+Subtotal: RM2717
+Employee in Charge: Ahmad Daniel Bin Isa
+
+=== Sales Receipt ===
+Date: 2026-01-10
+Time: 03:41 p.m.
+Customer Name: Amin Idris
+Item(s) Purchased:
+- SW2400-1 x6 @ RM789 = RM4734
+Transaction Method: Cash
+Subtotal: RM4734
+Employee in Charge: Ahmad Daniel Bin Isa
+
+=== Sales Receipt ===
+Date: 2026-01-10
+Time: 03:43 p.m.
+Customer Name: Fahrin Amsyar
+Item(s) Purchased:
+- SW2400-4 x3 @ RM729 = RM2187
+- DW2300-2 x2 @ RM399 = RM798
+- SW2500-4 x1 @ RM825 = RM825
+Transaction Method: Shopee Pay Later
+Subtotal: RM3810
+Employee in Charge: Ahmad Daniel Bin Isa
+
+=== Sales Receipt ===
+Date: 2026-01-10
+Time: 03:45 p.m.
+Customer Name: Sofia Rainiah
+Item(s) Purchased:
+- DW2300-1 x2 @ RM399 = RM798
+- DW2300-4 x1 @ RM349 = RM349
+- DW2400-1 x1 @ RM599 = RM599
+Transaction Method: Cash
+Subtotal: RM1746
+Employee in Charge: Ahmad Daniel Bin Isa
+
+=== Sales Receipt ===
+Date: 2026-01-10
+Time: 03:53 p.m.
+Customer Name: Qolbi Khairin
+Item(s) Purchased:
+- DW2300-1 x3 @ RM399 = RM1197
+Transaction Method: Credit Card
+Subtotal: RM1197
+Employee in Charge: Ahmad Daniel Bin Isa
+
+=== Sales Receipt ===
+Date: 2026-01-10
+Time: 03:54 p.m.
+Customer Name: Ummu Aiman
+Item(s) Purchased:
+- DW2300-4 x2 @ RM349 = RM698
+- DW2400-1 x2 @ RM599 = RM1198
+Transaction Method: Cash
+Subtotal: RM1896
+Employee in Charge: Ahmad Daniel Bin Isa
+
+=== Sales Receipt ===
+Date: 2026-01-10
+Time: 03:57 p.m.
+Customer Name: Khalthum
+Item(s) Purchased:
+- SW2400-2 x4 @ RM769 = RM3076
+Transaction Method: Cash
+Subtotal: RM3076
+Employee in Charge: Ahmad Daniel Bin Isa
