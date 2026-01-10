@@ -17,6 +17,8 @@ import java.io.PrintWriter;
 import util.FilePath;
 import util.Methods;
 
+import javax.swing.*;
+
 public class SalesManager {
     private String keyword;
     private List<String[]> salesData = new ArrayList<>();
@@ -246,16 +248,18 @@ public class SalesManager {
     }
 
     public void searchSalesInfo(Scanner input) {
-        System.out.println("\n=== Search Sales Information ===");
-        System.out.print("Search keyword: ");
-        String searchKeyword = input.next();
+        //System.out.println("\n=== Search Sales Information ===");
+        //System.out.print("Search keyword: ");
+        //String searchKeyword = input.next();
+        String searchKeyword = JOptionPane.showInputDialog("Search keyword: ");
         this.keyword = searchKeyword;
-        System.out.println("Searching...");
+        //System.out.println("Searching...");
 
         if (findSales()) {
             displaySalesInfo();
         } else {
-            System.out.println("No matching sales record found.");
+            //System.out.println("No matching sales record found.");
+            JOptionPane.showMessageDialog(null, "No matching sales record found", null, JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -300,8 +304,8 @@ public class SalesManager {
 
     private void displaySalesInfo(){
         for(String[] sale : salesData){
+            /*
             System.out.println("\nSales Record Found:");
-        
             System.out.println("Date: " + sale[7]);
             System.out.println("Time: " + sale[8]);
             System.out.println("Customer: " + sale[4]);
@@ -311,6 +315,18 @@ public class SalesManager {
             System.out.println("Transaction Method: " + sale[5]);
             System.out.println("Employee: " + getEmployeeName(sale[1]));
             System.out.println("Status: Transaction Verified.");
+             */
+            JOptionPane.showMessageDialog(null, "Sales Record Found:" +
+                    "\nDate: " + sale[7] +
+                    "\nTime: " + sale[8] +
+                    "\nCustomer: " + sale[4] +
+                    "\nItem(s): " + sale[2] +
+                    "\nQuantity: " + sale[3] +
+                    "\nTotal: RM" + sale[6] +
+                    "\nTransaction Method: " + sale[5] +
+                    "\nEmployee: " + getEmployeeName(sale[1]) +
+                    "\nStatus: Transaction Verified.")
+            ;
         }
         
     }

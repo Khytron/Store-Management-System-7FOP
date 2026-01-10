@@ -8,6 +8,7 @@ import service.StockManager;
 import service.SalesManager;
 import service.EditManager;
 import service.PerformanceManager;
+import javax.swing.JOptionPane;
 
 
 
@@ -25,8 +26,14 @@ class StoreManagementApp {
         PerformanceManager performanceManager = new PerformanceManager();
         Outlet currentOutlet;
 
+        JOptionPane.showMessageDialog(null, "Store Management Operation" +
+                        "\nby Group 7 OCC1");
+        /*
         System.out.println("=== Store Management Operation System ===");
         System.out.println("============== By Group 7 ===============\n");
+
+         */
+
        
         User loggedInUser = null;
 
@@ -56,11 +63,12 @@ class StoreManagementApp {
             if (loggedInUser.isEmployer){
                 String choice = "";
                 while (true) {
-                    System.out.print("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Filter/Sort Sales History\n5. Record New Sale\n6. Perform Stock Count\n7. Stock In\n8. Stock Out\n9. Edit Information\n10. Employee Performance Metrics\n11. Clock In/Clock Out\n12. View Attendance \n13. Logout \n\nYour choice: ");
-                    choice = input.next();
+                    //System.out.print("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Filter/Sort Sales History\n5. Record New Sale\n6. Perform Stock Count\n7. Stock In\n8. Stock Out\n9. Edit Information\n10. Employee Performance Metrics\n11. Clock In/Clock Out\n12. View Attendance \n13. Logout \n\nYour choice: ");
+                    choice = JOptionPane.showInputDialog("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Filter/Sort Sales History\n5. Record New Sale\n6. Perform Stock Count\n7. Stock In\n8. Stock Out\n9. Edit Information\n10. Employee Performance Metrics\n11. Clock In/Clock Out\n12. View Attendance \n13. Logout \n\nYour choice: ");
+                    //choice = input.next();
                     
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
-                    input.nextLine();
+                    //input.nextLine();
 
                     if (choice.equals("1")){
                         userManager.registerNewEmployee(input);

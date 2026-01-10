@@ -21,6 +21,7 @@ import model.Outlet;
 import util.FilePath;
 import util.Methods;
 
+import javax.swing.*;
 
 
 public class StockManager {
@@ -88,17 +89,23 @@ public class StockManager {
     }
 
     public void searchStockInfo(Scanner input) {
-        System.out.println("\n=== Search Stock Information ===");
+        /*System.out.println("\n=== Search Stock Information ===");
         System.out.print("Search Model Name: ");
         String search = input.next();
         userSearch = search;
         outletStock.clear();
         System.out.println("Searching...\n");
+         */
+
+        String search = JOptionPane.showInputDialog("Search Model Name: ");
+        userSearch = search;
+        outletStock.clear();
 
         if (findStock(search)) {
             displayStockInfo();
         } else {
-            System.out.println("Model " + search + " is not found in the database.");
+            //System.out.println("Model " + search + " is not found in the database.");
+            JOptionPane.showMessageDialog(null, "Model " + search + " is not found in the database",null, JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -134,14 +141,20 @@ public class StockManager {
     }
 
     private void displayStockInfo() {
-        System.out.printf("Model: %s\n", userSearch);
-        System.out.printf("Unit Price: RM%d\n", unitPrice);
-        System.out.println("Stock by outlet: ");
+
+        //System.out.printf("Model: %s\n", userSearch);
+        //System.out.printf("Unit Price: RM%d\n", unitPrice);
+        //System.out.println("Stock by outlet: ");
+        String outputMessage = String.format("Model: %s\nUnit Price: RM%d\nStock by outlet:\n", userSearch, unitPrice);
+
         for (String key : outletStock.keySet()) {
             Outlet outlet = outlets.get(key);
             String outletName = (outlet != null) ? outlet.getOutletName() : key;
-            System.out.printf("%s: %d \n", outletName, outletStock.get(key));
+            //System.out.printf("%s: %d \n", outletName, outletStock.get(key));
+            outputMessage += String.format("%s: %d \n", outletName, outletStock.get(key));
+
         }
+        JOptionPane.showMessageDialog(null, outputMessage);
     }
 
     public void performStockCount(Scanner input, String outletId) {
