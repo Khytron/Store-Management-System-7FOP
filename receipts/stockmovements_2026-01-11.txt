@@ -29,3 +29,23 @@ Models Received:
 - DW2300-1 (Quantity: 1)
 Total Quantity: 1
 Employee in Charge: Che Ku Amir
+
+=== Stock Out ===
+Date: 2026-01-11
+Time: 10:56 a.m.
+From: C60 (Kuala Lumpur City Centre)
+To: C67 (Pavillion Kuala Lumpur)
+Models Transferred:
+- DW2400-1 (Quantity: 1)
+Total Quantity: 1
+Employee in Charge: Che Ku Amir
+
+=== Stock Out ===
+Date: 2026-01-11
+Time: 11:20 a.m.
+From: C60 (Kuala Lumpur City Centre)
+To: C65 (Kuala Lumpur East Mall)
+Models Transferred:
+- SW2500-1 (Quantity: 1)
+Total Quantity: 1
+Employee in Charge: Che Ku Amir
