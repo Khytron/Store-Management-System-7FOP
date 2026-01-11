@@ -64,7 +64,8 @@ class StoreManagementApp {
                 String choice = "";
                 while (true) {
                     //System.out.print("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Filter/Sort Sales History\n5. Record New Sale\n6. Perform Stock Count\n7. Stock In\n8. Stock Out\n9. Edit Information\n10. Employee Performance Metrics\n11. Clock In/Clock Out\n12. View Attendance \n13. Logout \n\nYour choice: ");
-                    choice = JOptionPane.showInputDialog("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Filter/Sort Sales History\n5. Record New Sale\n6. Perform Stock Count\n7. Stock In\n8. Stock Out\n9. Edit Information\n10. Employee Performance Metrics\n11. Clock In/Clock Out\n12. View Attendance \n13. Logout \n\nYour choice: ");
+                    choice = JOptionPane.showInputDialog(null, "\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Filter/Sort Sales History\n5. Record New Sale\n6. Perform Stock Count\n7. Stock In\n8. Stock Out\n9. Edit Information\n10. Employee Performance Metrics\n11. Clock In/Clock Out\n12. View Attendance \n13. Logout \n\nYour choice: ",
+                            "Menu",JOptionPane.INFORMATION_MESSAGE);
                     //choice = input.next();
                     
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
@@ -126,7 +127,8 @@ class StoreManagementApp {
                     }
                     else if (choice.equals("13")){
                         userManager.attemptLogOut();
-                        System.out.println("\n\u001B[31mLogging Out..\u001B[0m\n");
+                        //System.out.println("\n\u001B[31mLogging Out..\u001B[0m\n");
+                        JOptionPane.showMessageDialog(null, "Account Logged Out Successfully.", "Logged Out", JOptionPane.INFORMATION_MESSAGE);
                         loggedInUser = null;
                         break;
                     } else {
@@ -139,11 +141,12 @@ class StoreManagementApp {
             {
                 String choice = "";
                 while (true){
-                    System.out.print("\nPick One Option\n1. Search Stock Information \n2. Search Sales Information\n3. Filter/Sort Sales History\n4. Record New Sale\n5. Perform Stock Count\n6. Stock In\n7. Stock Out\n8. Edit Information\n9. Clock In/Clock Out\n10. Logout \n\nYour choice: ");
-                    choice = input.next();
+                    //System.out.print("\nPick One Option\n1. Search Stock Information \n2. Search Sales Information\n3. Filter/Sort Sales History\n4. Record New Sale\n5. Perform Stock Count\n6. Stock In\n7. Stock Out\n8. Edit Information\n9. Clock In/Clock Out\n10. Logout \n\nYour choice: ");
+                    //choice = input.next();
+                    choice = JOptionPane.showInputDialog("\nPick One Option\n1. Search Stock Information \n2. Search Sales Information\n3. Filter/Sort Sales History\n4. Record New Sale\n5. Perform Stock Count\n6. Stock In\n7. Stock Out\n8. Edit Information\n9. Clock In/Clock Out\n10. Logout \n\nYour choice: ");
 
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
-                    input.nextLine();
+                    //input.nextLine(); irrelevant with JOptionPane
                     
                     if (choice.equals("1")){
                         stockManager.searchStockInfo(input);
@@ -184,8 +187,8 @@ class StoreManagementApp {
                     else if (choice.equals("10")){
                         userManager.attemptLogOut();
                         loggedInUser = null;
-                        System.out.println("\n\u001B[31mLogging Out..\u001B[0m\n");
-                        
+                        //System.out.println("\n\u001B[31mLogging Out..\u001B[0m\n");
+                        JOptionPane.showMessageDialog(null, "Account Logged Out Successfully.", "Logged Out", JOptionPane.INFORMATION_MESSAGE);
                         break;
                     }
 

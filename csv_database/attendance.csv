@@ -20,3 +20,5 @@ date,time,employeeId,outletCode,status
 11-01-2026,16:47,C6015,C60,Clock In
 11-01-2026,16:47,C6015,C60,Clock Out
 11-01-2026,16:47,C6015,C60,Clock In
+11-01-2026,17:47,C6002,C60,Clock In
+11-01-2026,17:47,C6002,C60,Clock Out

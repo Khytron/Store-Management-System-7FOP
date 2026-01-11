@@ -146,7 +146,8 @@ public class UserManager {
 
             
         } else {
-            System.out.println("\nLogin \u001B[31mFailed : Invalid User ID or Password\u001B[0m\n");
+            //System.out.println("\nLogin \u001B[31mFailed : Invalid User ID or Password\u001B[0m\n");
+            JOptionPane.showMessageDialog(null,"Login Failed : Invalid User ID or Password", "Login Failed", JOptionPane.WARNING_MESSAGE);
             return null;
         }
 

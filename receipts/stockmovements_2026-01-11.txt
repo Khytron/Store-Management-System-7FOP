@@ -49,3 +49,24 @@ Models Transferred:
 - SW2500-1 (Quantity: 1)
 Total Quantity: 1
 Employee in Charge: Che Ku Amir
+
+=== Stock In ===
+Date: 2026-01-11
+Time: 05:46 p.m.
+From: HQ (Service Center)
+To: C60 (Kuala Lumpur City Centre)
+Models Received:
+- SW2500-1 (Quantity: 1)
+Total Quantity: 1
+Employee in Charge: Adam bin Abu
+
+=== Stock Out ===
+Date: 2026-01-11
+Time: 05:46 p.m.
+From: C60 (Kuala Lumpur City Centre)
+To: C63 (IOI City Mall)
+Models Transferred:
+- DW2300-4 (Quantity: 2)
+- DW2300-3 (Quantity: 2)
+Total Quantity: 4
+Employee in Charge: Adam bin Abu
