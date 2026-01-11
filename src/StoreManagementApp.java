@@ -114,8 +114,9 @@ class StoreManagementApp {
                         continue;
                     }
                     else if (choice.equals("12")){
-                        System.out.print("\n1. View Employee Attendance\n2. View Today's Attendance\nChoice: ");
-                        String viewChoice = input.nextLine();
+                        //System.out.print("\n1. View Employee Attendance\n2. View Today's Attendance\nChoice: ");
+                        //String viewChoice = input.nextLine();
+                        String viewChoice = JOptionPane.showInputDialog("1. View Employee Attendance\n2. View Today's Attendance\nChoice: ");
                         if (viewChoice.equals("1")){
                             attendanceManager.viewAttendance(input);
                         } else if (viewChoice.equals("2")){
@@ -129,7 +130,8 @@ class StoreManagementApp {
                         loggedInUser = null;
                         break;
                     } else {
-                        System.out.println("\nInvalid choice.");
+                        //System.out.println("\nInvalid choice.");
+                        JOptionPane.showMessageDialog(null, "Invalid Choice", null, JOptionPane.WARNING_MESSAGE);
                     }
                 }
                 
@@ -188,7 +190,8 @@ class StoreManagementApp {
                     }
 
                     else {
-                        System.out.println("\nInvalid choice.");
+                        //System.out.println("\nInvalid choice.");
+                        JOptionPane.showMessageDialog(null, "Invalid Choice", null, JOptionPane.WARNING_MESSAGE);
                     }
 
                 }
@@ -201,8 +204,9 @@ class StoreManagementApp {
 
     // Helper method to handle Clock In/Clock Out menu
     private static void handleClockInOut(Scanner input, AttendanceManager attendanceManager, String userId, String outletId) {
-        System.out.print("\n1. Clock In\n2. Clock Out\nChoice: ");
-        String clockChoice = input.nextLine();
+        //System.out.print("\n1. Clock In\n2. Clock Out\nChoice: ");
+        //String clockChoice = input.nextLine();
+        String clockChoice = JOptionPane.showInputDialog("1. Clock In\n2. Clock Out\nChoice: ");
         if (clockChoice.equals("1")) {
             attendanceManager.clockIn(userId, outletId);
         } else if (clockChoice.equals("2")) {

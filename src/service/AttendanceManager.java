@@ -8,6 +8,8 @@ import java.util.Scanner;
 import util.FilePath;
 import util.Methods;
 
+import javax.swing.*;
+
 public class AttendanceManager {
         private List<Attendance> attendanceRecords;
 
@@ -20,34 +22,52 @@ public class AttendanceManager {
         public void clockIn(String employeeId, String outletCode) {
             // Check if employee already clocked in without clocking out
             if (hasOpenClockIn(employeeId)) {
-                System.out.println("\nYou have already clocked in. Please clock out first.");
+                //System.out.println("\nYou have already clocked in. Please clock out first.");
+                JOptionPane.showMessageDialog(null,"You have already clocked in. Please clock out first.", null, JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
             Attendance record = new Attendance(employeeId, outletCode, "Clock In");
             attendanceRecords.add(record);
             saveAttendanceToFile();
+            /*
             System.out.println("\n=== Attendance Clock In ===");
             System.out.println("Employee ID: " + record.getEmployeeId());
             System.out.println("Outlet: " + record.getOutletCode());
             System.out.println("\nClock In \u001B[32mSuccessful\u001B[0m!\nDate: " + record.getDate()+ "\nTime: " + record.getTime());
+             */
+            JOptionPane.showMessageDialog(null,
+                    "Employee ID: " + record.getEmployeeId()
+                    + "\nOutlet: " + record.getOutletCode()
+                    + "\nClock In Successful!\nDate: " + record.getDate()+ "\nTime: " + record.getTime(),
+            "Attendance Clock In", JOptionPane.INFORMATION_MESSAGE);
         }
 
         // Clock Out
         public void clockOut(String employeeId, String outletCode) {
             // Check if employee has clocked in first
             if (!hasOpenClockIn(employeeId)) {
-                System.out.println("\nYou haven't clocked in yet. Please clock in first.");
+                //System.out.println("\nYou haven't clocked in yet. Please clock in first.");
+                JOptionPane.showMessageDialog(null,"You haven't clocked in yet. Please clock in first.", null, JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
             Attendance clockInRecord = getLatestClockIn(employeeId);
             Attendance record = new Attendance(employeeId, outletCode, "Clock Out");
             attendanceRecords.add(record);
             saveAttendanceToFile();
+            /*
             System.out.println("\n=== Attendance Clock Out ===");
             System.out.println("Employee ID: " + record.getEmployeeId());
             System.out.println("Outlet: " + record.getOutletCode());
             System.out.println("\nClock Out \u001B[32mSuccessful\u001B[0m!\nDate: " + record.getDate()+ "\nTime: " + record.getTime());
             System.out.println("Total Hours Worked: " + Methods.timeDifference(record.getTime(),clockInRecord.getTime()));
+             */
+
+            JOptionPane.showMessageDialog(null,
+                    "Employee ID: " + record.getEmployeeId()
+                            + "\nOutlet: " + record.getOutletCode()
+                            + "\nClock Out Successful!\nDate: " + record.getDate()+ "\nTime: " + record.getTime()
+                            + "\nTotal Hours Worked: " + Methods.timeDifference(record.getTime(),clockInRecord.getTime()),
+                    "Attendance Clock Out", JOptionPane.INFORMATION_MESSAGE);
         }
 
         // Check if employee has an open clock-in (clocked in but not out yet today)
@@ -136,15 +156,23 @@ public class AttendanceManager {
 
         // View attendance for a specific employee
         public void viewAttendance(Scanner input) {
-            System.out.print("\nEnter Employee ID: ");
-            String employeeId = input.nextLine();
+            //System.out.print("\nEnter Employee ID: ");
+            //String employeeId = input.nextLine();
+            String employeeId = JOptionPane.showInputDialog("Enter Employee ID: ");
 
-            System.out.println("\n=== Attendance Records for " + employeeId + " ===");
+            //System.out.println("\n=== Attendance Records for " + employeeId + " ===");
+            String outputstr = "=== Attendance Records for " + employeeId + " ===";
             boolean found = false;
 
             for (Attendance att : attendanceRecords) {
                 if (att.getEmployeeId().equals(employeeId)) {
-                    System.out.printf("%s %s - %s - %s\n",
+                    /* System.out.printf("%s %s - %s - %s\n",
+                            att.getDate(),
+                            att.getTime(),
+                            att.getStatus(),
+                            att.getOutletCode()
+                    ); */
+                    outputstr += String.format("\n%s %s - %s - %s",
                             att.getDate(),
                             att.getTime(),
                             att.getStatus(),
@@ -155,13 +183,16 @@ public class AttendanceManager {
             }
 
             if (!found) {
-                System.out.println("No attendance records found.");
+                //System.out.println("No attendance records found.");
+                JOptionPane.showMessageDialog(null, "No attendance records found.", null, JOptionPane.INFORMATION_MESSAGE);
             }
+            else JOptionPane.showMessageDialog(null, outputstr, null, JOptionPane.INFORMATION_MESSAGE);
         }
 
         // View today's attendance for current outlet
         public void viewTodayAttendance(String outletCode) {
-            System.out.println("\n=== Today's Attendance for Outlet " + outletCode + " ===");
+            //System.out.println("\n=== Today's Attendance for Outlet " + outletCode + " ===");
+            String outputstr = "=== Today's Attendance for Outlet " + outletCode + " ===";
 
             String today = java.time.LocalDate.now()
                     .format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -170,7 +201,12 @@ public class AttendanceManager {
 
             for (Attendance att : attendanceRecords) {
                 if (att.getOutletCode().equals(outletCode) && att.getDate().equals(today)) {
-                    System.out.printf("%s - %s - %s\n",
+                    /*System.out.printf("%s - %s - %s\n",
+                            att.getTime(),
+                            att.getEmployeeId(),
+                            att.getStatus()
+                    );*/
+                    outputstr += String.format("\n%s - %s - %s",
                             att.getTime(),
                             att.getEmployeeId(),
                             att.getStatus()
@@ -180,8 +216,10 @@ public class AttendanceManager {
             }
 
             if (!found) {
-                System.out.println("No attendance records for today.");
+                //System.out.println("No attendance records for today.");
+                JOptionPane.showMessageDialog(null, "No attendance records for today.", null, JOptionPane.INFORMATION_MESSAGE);
             }
+            else JOptionPane.showMessageDialog(null, outputstr, null, JOptionPane.INFORMATION_MESSAGE);
         }
 
 }

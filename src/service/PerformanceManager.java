@@ -1,5 +1,6 @@
 package service;
 
+import java.awt.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,23 +13,28 @@ import java.util.Scanner;
 import util.FilePath;
 import util.Methods;
 
+import javax.swing.*;
+
 public class PerformanceManager {
 
     public PerformanceManager() {
     }
 
     public void viewPerformanceMetrics(Scanner input) {
-        System.out.println("\n=== Employee Performance Metrics ===");
+        /* System.out.println("\n=== Employee Performance Metrics ===");
         System.out.print("Enter Start Date (dd-MM-yy): ");
         String startDate = input.nextLine();
         System.out.print("Enter End Date (dd-MM-yy): ");
-        String endDate = input.nextLine();
+        String endDate = input.nextLine(); */
+        String startDate = JOptionPane.showInputDialog(null, "Enter Start Date (dd-MM-yy): ", "Employee Performance Metrics", JOptionPane.PLAIN_MESSAGE);
+        String endDate = JOptionPane.showInputDialog(null, "Enter End Date (dd-MM-yy): ", "Employee Performance Metrics", JOptionPane.PLAIN_MESSAGE);
 
         // Calculate performance from sales data
         Map<String, int[]> performanceMap = calculatePerformance(startDate, endDate);
 
         if (performanceMap.isEmpty()) {
-            System.out.println("\nNo sales records found for the specified period.");
+            //System.out.println("\nNo sales records found for the specified period.");
+            JOptionPane.showMessageDialog(null, "No sales records found for the specified period.", null, JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -42,10 +48,16 @@ public class PerformanceManager {
         performanceList.sort((a, b) -> Integer.compare(b.getValue()[0], a.getValue()[0]));
 
         // Display results
-        System.out.println("\nPerformance Report (" + startDate + " to " + endDate + ")");
+        /*
+        System.out.println("\nPerformance Report (" + endDate + " to " + endDate + ")");
         System.out.println("----------------------------------------------------");
         System.out.printf("%-5s %-25s %-15s %-15s\n", "Rank", "Employee Name", "Total Sales", "Transactions");
         System.out.println("----------------------------------------------------");
+         */
+        String outputstr = "<html><pre>Performance Report (" + endDate + " to " + endDate + ")"
+                + "<br>----------------------------------------------------";
+        outputstr += String.format("<br>%-5s %-25s %-15s %-15s\n", "Rank", "Employee Name", "Total Sales", "Transactions");
+        outputstr += "<br>----------------------------------------------------";
 
         int rank = 1;
         for (Map.Entry<String, int[]> entry : performanceList) {
@@ -54,15 +66,25 @@ public class PerformanceManager {
             int transactionCount = entry.getValue()[1];
             String employeeName = employeeNames.getOrDefault(employeeId, employeeId);
 
-            System.out.printf("%-5d %-25s RM%-13d %-15d\n", rank, employeeName, totalSales, transactionCount);
+            //System.out.printf("%-5d %-25s RM%-13d %-15d\n", rank, employeeName, totalSales, transactionCount);
+            outputstr += String.format("<br>%-5d %-25s RM%-13d %-15d\n", rank, employeeName, totalSales, transactionCount);
             rank++;
         }
 
-        System.out.println("----------------------------------------------------");
+        //System.out.println("----------------------------------------------------");
+        outputstr += "<br>----------------------------------------------------";
 
         // Save to CSV
         savePerformanceToCSV(performanceList, employeeNames);
-        System.out.println("\nPerformance data saved to employee-performance-metrics.csv");
+        //System.out.println("\nPerformance data saved to employee-performance-metrics.csv");
+        outputstr += "<br>Performance data saved to employee-performance-metrics.csv</pre></html>";
+
+        //Set font to a monospace font
+        Font monospacefont = new Font("Monospaced", Font.PLAIN, 12);
+        JLabel label = new JLabel(outputstr);
+        label.setFont(monospacefont);
+
+        JOptionPane.showMessageDialog(null, label, "receipt", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private Map<String, int[]> calculatePerformance(String startDate, String endDate) {
