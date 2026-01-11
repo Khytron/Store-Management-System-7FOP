@@ -43,7 +43,7 @@ public class SalesManager {
         System.out.println("Time: " + timeStr);
         System.out.print("Customer Name: ");
         String customerName = input.nextLine(); */
-        String customerName = JOptionPane.showInputDialog("Date: " + dateStr + "\n Time: " + timeStr + "\nCustomer Name: ");
+        String customerName = Methods.showInputDialog("Date: " + dateStr + "\n Time: " + timeStr + "\nCustomer Name: ");
         
         //System.out.println("Item(s) Purchased:");
         
@@ -70,7 +70,7 @@ public class SalesManager {
         while (true) {
             //System.out.print("Enter Model: ");
             //String modelName = input.nextLine();
-            String modelName = JOptionPane.showInputDialog("Enter Model: "); //put title Item(s) Purchased
+            String modelName = Methods.showInputDialog("Enter Model: "); //put title Item(s) Purchased
             
             // Find model and get price
             int unitPrice = -1;
@@ -99,7 +99,7 @@ public class SalesManager {
             int quantity;
             try {
                 //quantity = Integer.parseInt(input.nextLine());
-                quantity = Integer.parseInt(JOptionPane.showInputDialog("Enter Quantity: "));
+                quantity = Integer.parseInt(Methods.showInputDialog("Enter Quantity: "));
             } catch (NumberFormatException e) {
                 //System.out.println("Invalid quantity.");
                 JOptionPane.showMessageDialog(null, "Invalid quantity.", null, JOptionPane.WARNING_MESSAGE);
@@ -133,7 +133,7 @@ public class SalesManager {
             
             //System.out.print("Are there more items purchased? (Y/N): ");
             //String more = input.nextLine().trim().toUpperCase();
-            String more = JOptionPane.showInputDialog("Unit Price: RM" + unitPrice + "\n Are there more items purchased? (Y/N): ");
+            String more = Methods.showInputDialog("Unit Price: RM" + unitPrice + "\n Are there more items purchased? (Y/N): ");
             more = more.trim().toUpperCase();
             if (!more.equals("Y")) {
                 break;
@@ -148,7 +148,7 @@ public class SalesManager {
         
         //System.out.print("\nEnter transaction method: ");
         //String transactionMethod = input.nextLine();
-        String transactionMethod = JOptionPane.showInputDialog("\nEnter transaction method: ");
+        String transactionMethod = Methods.showInputDialog("\nEnter transaction method: ");
         
         //System.out.println("Subtotal: RM" + subtotal);
         //JOptionPane'd below
@@ -271,7 +271,7 @@ public class SalesManager {
         //System.out.println("\n=== Search Sales Information ===");
         //System.out.print("Search keyword: ");
         //String searchKeyword = input.next();
-        String searchKeyword = JOptionPane.showInputDialog("Search keyword: ");
+        String searchKeyword = Methods.showInputDialog("Search keyword: ");
         this.keyword = searchKeyword;
         //System.out.println("Searching...");
 
@@ -410,8 +410,8 @@ public class SalesManager {
         System.out.print("Enter End Date (dd-MM-yy): ");
         String endDate = input.nextLine();
          */
-        String startDate = JOptionPane.showInputDialog("Enter Start Date (dd-MM-yy): ");
-        String endDate = JOptionPane.showInputDialog("Enter End Date (dd-MM-yy): ");
+        String startDate = Methods.showInputDialog("Enter Start Date (dd-MM-yy): ");
+        String endDate = Methods.showInputDialog("Enter End Date (dd-MM-yy): ");
 
         List<List<String>> allSalesData = Methods.readCsvFile(FilePath.salesDataPath);
         
@@ -461,7 +461,7 @@ public class SalesManager {
         System.out.print("Choice: ");
         String sortChoice = input.nextLine();
          */
-        String sortChoice = JOptionPane.showInputDialog("Sort by:" +
+        String sortChoice = Methods.showInputDialog("Sort by:" +
                         "\n1. Date (Ascending)" +
                         "\n2. Date (Descending)" +
                         "\n3. Amount (Lowest to Highest)" +

@@ -11,8 +11,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
 
 public class Methods {
+    // Input dialog without Cancel button - returns empty string if closed
+    public static String showInputDialog(String message) {
+        return showInputDialog(message, "Input");
+    }
+    
+    public static String showInputDialog(String message, String title) {
+        JTextField textField = new JTextField(20);
+        JPanel panel = new JPanel(new BorderLayout(5, 5));
+        panel.add(new JLabel("<html>" + message.replace("\n", "<br>") + "</html>"), BorderLayout.NORTH);
+        panel.add(textField, BorderLayout.CENTER);
+        
+        String[] options = {"OK"};
+        int result = JOptionPane.showOptionDialog(null, panel, title,
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, options[0]);
+        
+        if (result == 0) {
+            return textField.getText();
+        }
+        return ""; // Return empty string instead of null when closed
+    }
+
     // Method to read csv file
     public static List<List<String>> readCsvFile(String path){
         String line;

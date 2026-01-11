@@ -8,6 +8,7 @@ import service.StockManager;
 import service.SalesManager;
 import service.EditManager;
 import service.PerformanceManager;
+import util.Methods;
 import javax.swing.JOptionPane;
 
 
@@ -64,8 +65,7 @@ class StoreManagementApp {
                 String choice = "";
                 while (true) {
                     //System.out.print("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Filter/Sort Sales History\n5. Record New Sale\n6. Perform Stock Count\n7. Stock In\n8. Stock Out\n9. Edit Information\n10. Employee Performance Metrics\n11. Clock In/Clock Out\n12. View Attendance \n13. Logout \n\nYour choice: ");
-                    choice = JOptionPane.showInputDialog(null, "\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Filter/Sort Sales History\n5. Record New Sale\n6. Perform Stock Count\n7. Stock In\n8. Stock Out\n9. Edit Information\n10. Employee Performance Metrics\n11. Clock In/Clock Out\n12. View Attendance \n13. Logout \n\nYour choice: ",
-                            "Menu",JOptionPane.INFORMATION_MESSAGE);
+                    choice = Methods.showInputDialog("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Filter/Sort Sales History\n5. Record New Sale\n6. Perform Stock Count\n7. Stock In\n8. Stock Out\n9. Edit Information\n10. Employee Performance Metrics\n11. Clock In/Clock Out\n12. View Attendance \n13. Logout \n\nYour choice: ", "Menu");
                     //choice = input.next();
                     
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
@@ -117,7 +117,7 @@ class StoreManagementApp {
                     else if (choice.equals("12")){
                         //System.out.print("\n1. View Employee Attendance\n2. View Today's Attendance\nChoice: ");
                         //String viewChoice = input.nextLine();
-                        String viewChoice = JOptionPane.showInputDialog("1. View Employee Attendance\n2. View Today's Attendance\nChoice: ");
+                        String viewChoice = Methods.showInputDialog("1. View Employee Attendance\n2. View Today's Attendance\nChoice: ");
                         if (viewChoice.equals("1")){
                             attendanceManager.viewAttendance(input);
                         } else if (viewChoice.equals("2")){
@@ -143,7 +143,7 @@ class StoreManagementApp {
                 while (true){
                     //System.out.print("\nPick One Option\n1. Search Stock Information \n2. Search Sales Information\n3. Filter/Sort Sales History\n4. Record New Sale\n5. Perform Stock Count\n6. Stock In\n7. Stock Out\n8. Edit Information\n9. Clock In/Clock Out\n10. Logout \n\nYour choice: ");
                     //choice = input.next();
-                    choice = JOptionPane.showInputDialog("\nPick One Option\n1. Search Stock Information \n2. Search Sales Information\n3. Filter/Sort Sales History\n4. Record New Sale\n5. Perform Stock Count\n6. Stock In\n7. Stock Out\n8. Edit Information\n9. Clock In/Clock Out\n10. Logout \n\nYour choice: ");
+                    choice = Methods.showInputDialog("\nPick One Option\n1. Search Stock Information \n2. Search Sales Information\n3. Filter/Sort Sales History\n4. Record New Sale\n5. Perform Stock Count\n6. Stock In\n7. Stock Out\n8. Edit Information\n9. Clock In/Clock Out\n10. Logout \n\nYour choice: ");
 
                     // To fix a small error where if u do input.nextLine() it reads \n immediately
                     //input.nextLine(); irrelevant with JOptionPane
@@ -209,7 +209,7 @@ class StoreManagementApp {
     private static void handleClockInOut(Scanner input, AttendanceManager attendanceManager, String userId, String outletId) {
         //System.out.print("\n1. Clock In\n2. Clock Out\nChoice: ");
         //String clockChoice = input.nextLine();
-        String clockChoice = JOptionPane.showInputDialog("1. Clock In\n2. Clock Out\nChoice: ");
+        String clockChoice = Methods.showInputDialog("1. Clock In\n2. Clock Out\nChoice: ");
         if (clockChoice.equals("1")) {
             attendanceManager.clockIn(userId, outletId);
         } else if (clockChoice.equals("2")) {
@@ -221,7 +221,7 @@ class StoreManagementApp {
     private static void handleEditInfo(Scanner input, EditManager editManager, String outletId) {
         //System.out.print("\n1. Edit Stock Information\n2. Edit Sales Information\nChoice: ");
         //String editChoice = input.nextLine();
-        String editChoice = JOptionPane.showInputDialog("\n1. Edit Stock Information\n2. Edit Sales Information\nChoice: ");
+        String editChoice = Methods.showInputDialog("\n1. Edit Stock Information\n2. Edit Sales Information\nChoice: ");
         if (editChoice.equals("1")) {
             editManager.editStockInfo(input, outletId);
         } else if (editChoice.equals("2")) {

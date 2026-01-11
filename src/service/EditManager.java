@@ -22,8 +22,7 @@ public class EditManager {
         System.out.print("Enter Model Name: ");
         String modelName = input.next();
         input.nextLine(); */
-        String modelName = JOptionPane.showInputDialog(null, "\nEnter Model Name: ",
-                "Edit Stock Information", JOptionPane.PLAIN_MESSAGE);
+        String modelName = Methods.showInputDialog("\nEnter Model Name: ", "Edit Stock Information");
 
         List<List<String>> modelData = Methods.readCsvFile(FilePath.modelDataPath);
         if (modelData.isEmpty()) {
@@ -72,7 +71,7 @@ public class EditManager {
         int newStock;
         try {
             //newStock = Integer.parseInt(input.nextLine());
-            newStock = Integer.parseInt(JOptionPane.showInputDialog("Current Stock: " + currentStock + "\nEnter New Stock Value: "));
+            newStock = Integer.parseInt(Methods.showInputDialog("Current Stock: " + currentStock + "\nEnter New Stock Value: "));
         } catch (NumberFormatException e) {
             //System.out.println("Invalid stock value.");
             JOptionPane.showMessageDialog(null, "Invalid stock value.", null, JOptionPane.WARNING_MESSAGE);
@@ -107,10 +106,10 @@ public class EditManager {
         //System.out.println("\n=== Edit Sales Information ===");
         //System.out.print("Enter Transaction Date (dd-MM-yy): ");
         //String searchDate = input.nextLine();
-        String searchDate = JOptionPane.showInputDialog(null, "Enter Transaction Date (dd-MM-yy): ", "Edit Sales Information", JOptionPane.PLAIN_MESSAGE);
+        String searchDate = Methods.showInputDialog("Enter Transaction Date (dd-MM-yy): ", "Edit Sales Information");
         //System.out.print("Enter Customer Name: ");
         //String searchCustomer = input.nextLine();
-        String searchCustomer = JOptionPane.showInputDialog("Enter Customer Name: ");
+        String searchCustomer = Methods.showInputDialog("Enter Customer Name: ");
 
         List<List<String>> salesData = Methods.readCsvFile(FilePath.salesDataPath);
         if (salesData.isEmpty()) {
@@ -156,7 +155,7 @@ public class EditManager {
         
         String choice = input.nextLine();
          */
-        String choice = JOptionPane.showInputDialog(
+        String choice = Methods.showInputDialog(
                 "Sales Record Found:"
                 + "\nModel: " + saleRow.get(2)
                 + "\nQuantity: " + saleRow.get(3)
@@ -173,19 +172,19 @@ public class EditManager {
             case "1":
                 //System.out.print("Enter New Customer Name: ");
                 //newValue = input.nextLine();
-                newValue = JOptionPane.showInputDialog("Enter New Customer Name: ");
+                newValue = Methods.showInputDialog("Enter New Customer Name: ");
                 fieldIndex = 4;
                 break;
             case "2":
                 //System.out.print("Enter New Model: ");
                 //newValue = input.nextLine();
-                newValue = JOptionPane.showInputDialog("Enter New Model: ");
+                newValue = Methods.showInputDialog("Enter New Model: ");
                 fieldIndex = 2;
                 break;
             case "3":
                 //System.out.print("Enter New Quantity: ");
                 //newValue = input.nextLine();
-                newValue = JOptionPane.showInputDialog("Enter New Quantity: ");
+                newValue = Methods.showInputDialog("Enter New Quantity: ");
                 try {
                     Integer.parseInt(newValue);
                 } catch (NumberFormatException e) {
@@ -198,7 +197,7 @@ public class EditManager {
             case "4":
                 //System.out.print("Enter New Total: ");
                 //newValue = input.nextLine();
-                newValue = JOptionPane.showInputDialog("Enter New Total");
+                newValue = Methods.showInputDialog("Enter New Total");
                 try {
                     Integer.parseInt(newValue);
                 } catch (NumberFormatException e) {
@@ -211,7 +210,7 @@ public class EditManager {
             case "5":
                 //System.out.print("Enter New Transaction Method: ");
                 //newValue = input.nextLine();
-                newValue = JOptionPane.showInputDialog("Enter New Transaction Method: ");
+                newValue = Methods.showInputDialog("Enter New Transaction Method: ");
                 fieldIndex = 5;
                 break;
             default:
@@ -222,7 +221,7 @@ public class EditManager {
 
         //System.out.print("Confirm Update? (Y/N): ");
         //String confirm = input.nextLine();
-        String confirm = JOptionPane.showInputDialog("Confirm Update? (Y/N): ");
+        String confirm = Methods.showInputDialog("Confirm Update? (Y/N): ");
 
         if (!confirm.equalsIgnoreCase("Y")) {
             //System.out.println("Update cancelled.");

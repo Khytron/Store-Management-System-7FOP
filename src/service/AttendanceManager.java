@@ -158,7 +158,7 @@ public class AttendanceManager {
         public void viewAttendance(Scanner input) {
             //System.out.print("\nEnter Employee ID: ");
             //String employeeId = input.nextLine();
-            String employeeId = JOptionPane.showInputDialog("Enter Employee ID: ");
+            String employeeId = Methods.showInputDialog("Enter Employee ID: ");
 
             //System.out.println("\n=== Attendance Records for " + employeeId + " ===");
             String outputstr = "=== Attendance Records for " + employeeId + " ===";

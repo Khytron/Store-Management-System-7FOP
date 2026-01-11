@@ -98,9 +98,9 @@ public class UserManager {
         String userName = "";
 
 
-        String userId = JOptionPane.showInputDialog("Employee Login" +
-                "\nEnter User ID:");
-        String userPassword = JOptionPane.showInputDialog("Enter password:");
+        String userId = Methods.showInputDialog("Employee Login" +
+                "\nEnter User ID:", "Login");
+        String userPassword = Methods.showInputDialog("Enter password:", "Login");
 
         // If user wants to exit the program
         if (userId.equals("exit") || userPassword.equals("exit"))
@@ -160,22 +160,22 @@ public class UserManager {
         String employeeId = input.next();
         input.nextLine();
          */
-        String employeeId = JOptionPane.showInputDialog("Enter Employee ID: ");
+        String employeeId = Methods.showInputDialog("Enter Employee ID: ");
         /*
         System.out.print("Enter Employee Name: ");
         String employeeName = input.nextLine();
          */
-        String employeeName = JOptionPane.showInputDialog("Enter Employee Name: ");
+        String employeeName = Methods.showInputDialog("Enter Employee Name: ");
         /*
         System.out.print("Set Role: ");
         String employeeRole = input.next();
          */
-        String employeeRole = JOptionPane.showInputDialog("Set Role: ");
+        String employeeRole = Methods.showInputDialog("Set Role: ");
         /*
         System.out.print("Set Password: ");
         String employeePassword = input.next();
          */
-        String employeePassword = JOptionPane.showInputDialog("Set Password: ");
+        String employeePassword = Methods.showInputDialog("Set Password: ");
         
         String[] newEmployeeData = {employeeId, employeeName, employeeRole, employeePassword};
 

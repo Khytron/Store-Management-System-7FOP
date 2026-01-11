@@ -26,8 +26,8 @@ public class PerformanceManager {
         String startDate = input.nextLine();
         System.out.print("Enter End Date (dd-MM-yy): ");
         String endDate = input.nextLine(); */
-        String startDate = JOptionPane.showInputDialog(null, "Enter Start Date (dd-MM-yy): ", "Employee Performance Metrics", JOptionPane.PLAIN_MESSAGE);
-        String endDate = JOptionPane.showInputDialog(null, "Enter End Date (dd-MM-yy): ", "Employee Performance Metrics", JOptionPane.PLAIN_MESSAGE);
+        String startDate = Methods.showInputDialog("Enter Start Date (dd-MM-yy): ", "Employee Performance Metrics");
+        String endDate = Methods.showInputDialog("Enter End Date (dd-MM-yy): ", "Employee Performance Metrics");
 
         // Calculate performance from sales data
         Map<String, int[]> performanceMap = calculatePerformance(startDate, endDate);

@@ -97,7 +97,7 @@ public class StockManager {
         System.out.println("Searching...\n");
          */
 
-        String search = JOptionPane.showInputDialog("Search Model Name: ");
+        String search = Methods.showInputDialog("Search Model Name: ");
         userSearch = search;
         outletStock.clear();
 
@@ -180,7 +180,7 @@ public class StockManager {
         for (Model model : models ){
             //System.out.print("\nModel: " + model.getModelId() + " - Counted: ");
             //int userCount = input.nextInt();
-            int userCount = Integer.parseInt(JOptionPane.showInputDialog("\nModel: " + model.getModelId() + " - Counted: "));
+            int userCount = Integer.parseInt(Methods.showInputDialog("\nModel: " + model.getModelId() + " - Counted: "));
             int actualStockCount = model.getStock(outletId);
             //System.out.println("Stock Record: " + actualStockCount);
 
@@ -255,7 +255,7 @@ public class StockManager {
         //System.out.print("Select source (From): ");
         outputstr += "\n" + "Select source (From): ";
         //int fromChoice = input.nextInt();
-        int fromChoice = Integer.parseInt(JOptionPane.showInputDialog(outputstr));
+        int fromChoice = Integer.parseInt(Methods.showInputDialog(outputstr));
         //input.nextLine(); obsolete
         
         if (fromChoice < 1 || fromChoice > outletIdList.size()) {
@@ -282,7 +282,7 @@ public class StockManager {
         while (true) {
             //System.out.print("\nEnter Model Name (or 'done' to finish): ");
             //String modelName = input.next();
-            String modelName = JOptionPane.showInputDialog(outputstr + "\nEnter Model Name (or 'done' to finish): ");
+            String modelName = Methods.showInputDialog(outputstr + "\nEnter Model Name (or 'done' to finish): ");
             
             if (modelName.equalsIgnoreCase("done")) {
                 break;
@@ -318,7 +318,7 @@ public class StockManager {
             /* System.out.print("Enter Quantity: ");
             int quantity = input.nextInt();
             input.nextLine(); */
-            int quantity = Integer.parseInt(JOptionPane.showInputDialog(outputstr + "\nEnter Quantity: "));
+            int quantity = Integer.parseInt(Methods.showInputDialog(outputstr + "\nEnter Quantity: "));
             
             if (quantity <= 0) {
                 //System.out.println("Invalid quantity.");
@@ -414,7 +414,7 @@ public class StockManager {
         //int toChoice = input.nextInt();
         //input.nextLine();
         outputstr += "\nSelect destination (To): ";
-        int toChoice = Integer.parseInt(JOptionPane.showInputDialog(outputstr));
+        int toChoice = Integer.parseInt(Methods.showInputDialog(outputstr));
         
         if (toChoice < 1 || toChoice > outletIdList.size()) {
             //System.out.println("Invalid selection.");
@@ -435,7 +435,7 @@ public class StockManager {
         while (true) {
             //System.out.print("\nEnter Model Name (or 'done' to finish): ");
             //String modelName = input.next();
-            String modelName = JOptionPane.showInputDialog(
+            String modelName = Methods.showInputDialog(
                     "From: " + currentOutletId + " (" + fromOutletName + ")"
                     + "\nTo: " + toOutletId + " (" + toOutletName + ")"
                     + "\nEnter Model Name (or 'done' to finish): ");
@@ -466,7 +466,7 @@ public class StockManager {
             //System.out.print("Enter Quantity: ");
             //int quantity = input.nextInt();
             //input.nextLine();
-            int quantity = Integer.parseInt(JOptionPane.showInputDialog("Available stock: " + availableStock + "\nEnter Quantity: "));
+            int quantity = Integer.parseInt(Methods.showInputDialog("Available stock: " + availableStock + "\nEnter Quantity: "));
             
             if (quantity <= 0) {
                 //System.out.println("Invalid quantity.");
