@@ -212,8 +212,9 @@ class StoreManagementApp {
 
     // Helper method to handle Edit Information menu
     private static void handleEditInfo(Scanner input, EditManager editManager, String outletId) {
-        System.out.print("\n1. Edit Stock Information\n2. Edit Sales Information\nChoice: ");
-        String editChoice = input.nextLine();
+        //System.out.print("\n1. Edit Stock Information\n2. Edit Sales Information\nChoice: ");
+        //String editChoice = input.nextLine();
+        String editChoice = JOptionPane.showInputDialog("\n1. Edit Stock Information\n2. Edit Sales Information\nChoice: ");
         if (editChoice.equals("1")) {
             editManager.editStockInfo(input, outletId);
         } else if (editChoice.equals("2")) {
