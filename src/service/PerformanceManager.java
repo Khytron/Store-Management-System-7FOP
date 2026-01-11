@@ -54,7 +54,7 @@ public class PerformanceManager {
         System.out.printf("%-5s %-25s %-15s %-15s\n", "Rank", "Employee Name", "Total Sales", "Transactions");
         System.out.println("----------------------------------------------------");
          */
-        String outputstr = "<html><pre>Performance Report (" + endDate + " to " + endDate + ")"
+        String outputstr = "<html><pre>Performance Report (" + startDate + " to " + endDate + ")"
                 + "<br>----------------------------------------------------";
         outputstr += String.format("<br>%-5s %-25s %-15s %-15s\n", "Rank", "Employee Name", "Total Sales", "Transactions");
         outputstr += "<br>----------------------------------------------------";
