@@ -221,7 +221,7 @@ public class StockManager {
     }
 
     public void stockIn(Scanner input, String currentOutletId, String employeeName) {
-        System.out.println("\n=== Stock In ===");
+        //System.out.println("\n=== Stock In ===");
         
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter dateFT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -230,30 +230,37 @@ public class StockManager {
         String dateStr = now.format(dateFT);
         String timeStr = now.format(timeFT).toLowerCase().replace("am", "a.m.").replace("pm", "p.m.");
         
-        System.out.println("Date: " + dateStr);
-        System.out.println("Time: " + timeStr);
+        //System.out.println("Date: " + dateStr);
+        //System.out.println("Time: " + timeStr);
+        JOptionPane.showMessageDialog(null, "Date: " + dateStr + "\nTime: " + timeStr, null, JOptionPane.INFORMATION_MESSAGE);
         
         // Select source outlet (excluding current outlet)
-        System.out.println("\nAvailable Sources:");
+        //System.out.println("\nAvailable Sources:");
+        String outputstr = "Available Sources: ";
         List<String> outletIdList = new ArrayList<>();
         int idx = 1;
         for (String id : outlets.keySet()) {
             if (!id.equals(currentOutletId)) {
                 Outlet o = outlets.get(id);
-                System.out.println(idx + ". " + id + " (" + o.getOutletName() + ")");
+                //System.out.println(idx + ". " + id + " (" + o.getOutletName() + ")");
+                outputstr += "\n" + idx + ". " + id + " (" + o.getOutletName() + ")";
                 outletIdList.add(id);
                 idx++;
             }
         }
-        System.out.println(idx + ". HQ (Service Center)");
+        //System.out.println(idx + ". HQ (Service Center)");
+        outputstr += "\n" + idx + ". HQ (Service Center)";
         outletIdList.add("HQ");
         
-        System.out.print("Select source (From): ");
-        int fromChoice = input.nextInt();
-        input.nextLine();
+        //System.out.print("Select source (From): ");
+        outputstr += "\n" + "Select source (From): ";
+        //int fromChoice = input.nextInt();
+        int fromChoice = Integer.parseInt(JOptionPane.showInputDialog(outputstr));
+        //input.nextLine(); obsolete
         
         if (fromChoice < 1 || fromChoice > outletIdList.size()) {
-            System.out.println("Invalid selection.");
+            //System.out.println("Invalid selection.");
+            JOptionPane.showMessageDialog(null, "Invalid Selection.", null, JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -263,16 +270,19 @@ public class StockManager {
         Outlet currentOutlet = outlets.get(currentOutletId);
         String toOutletName = currentOutlet.getOutletName();
         
-        System.out.println("From: " + fromOutletId + " (" + fromOutletName + ")");
-        System.out.println("To: " + currentOutletId + " (" + toOutletName + ")");
+        //System.out.println("From: " + fromOutletId + " (" + fromOutletName + ")");
+        //System.out.println("To: " + currentOutletId + " (" + toOutletName + ")");
+        outputstr = "From: " + fromOutletId + " (" + fromOutletName + ")" +
+                    "\nTo: " + currentOutletId + " (" + toOutletName + ")";
         
         // Collect models and quantities
         Map<String, Integer> modelsReceived = new LinkedHashMap<>();
         int totalQuantity = 0;
         
         while (true) {
-            System.out.print("\nEnter Model Name (or 'done' to finish): ");
-            String modelName = input.next();
+            //System.out.print("\nEnter Model Name (or 'done' to finish): ");
+            //String modelName = input.next();
+            String modelName = JOptionPane.showInputDialog(outputstr + "\nEnter Model Name (or 'done' to finish): ");
             
             if (modelName.equalsIgnoreCase("done")) {
                 break;
@@ -288,31 +298,38 @@ public class StockManager {
             }
             
             if (foundModel == null) {
-                System.out.println("Model not found. Please try again.");
+                //System.out.println("Model not found. Please try again.");
+                JOptionPane.showMessageDialog(null, "Model not found. Please try again.", null, JOptionPane.WARNING_MESSAGE);
                 continue;
             }
-            
+
+            outputstr = ""; //reset outputstr to use in another JOptionPane
             // Check available stock from source (skip for HQ - unlimited supply)
             int availableStock = -1;
             if (!fromOutletId.equals("HQ")) {
                 availableStock = foundModel.getStock(fromOutletId);
-                System.out.println("Available stock at source: " + availableStock);
+                //System.out.println("Available stock at source: " + availableStock);
+                outputstr += "Available stock at source: " + availableStock;
             } else {
-                System.out.println("Source: HQ (unlimited supply)");
+                //System.out.println("Source: HQ (unlimited supply)");
+                outputstr += "Source: HQ (unlimited supply)";
             }
             
-            System.out.print("Enter Quantity: ");
+            /* System.out.print("Enter Quantity: ");
             int quantity = input.nextInt();
-            input.nextLine();
+            input.nextLine(); */
+            int quantity = Integer.parseInt(JOptionPane.showInputDialog(outputstr + "\nEnter Quantity: "));
             
             if (quantity <= 0) {
-                System.out.println("Invalid quantity.");
+                //System.out.println("Invalid quantity.");
+                JOptionPane.showMessageDialog(null, "Invalid quantity.", null, JOptionPane.WARNING_MESSAGE);
                 continue;
             }
             
             // Check if source has enough stock (skip for HQ)
             if (!fromOutletId.equals("HQ") && quantity > availableStock) {
-                System.out.println("Insufficient stock at source. Only " + availableStock + " available.");
+                //System.out.println("Insufficient stock at source. Only " + availableStock + " available.");
+                JOptionPane.showMessageDialog(null, "Insufficient stock at source. Only " + availableStock + " available.", null, JOptionPane.WARNING_MESSAGE);
                 continue;
             }
             
@@ -321,7 +338,8 @@ public class StockManager {
         }
         
         if (modelsReceived.isEmpty()) {
-            System.out.println("No models added. Stock In cancelled.");
+            //System.out.println("No models added. Stock In cancelled.");
+            JOptionPane.showMessageDialog(null, "No models added. Stock In cancelled.", null, JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -332,20 +350,29 @@ public class StockManager {
         updateModelQuantities(modelsReceived, currentOutletId, true);
         
         // Reload models to reflect changes
+        outputstr = ""; //reset outputstr
         loadModels();
         
-        System.out.println("\nModels Received:");
+        //System.out.println("\nModels Received:");
         for (Map.Entry<String, Integer> entry : modelsReceived.entrySet()) {
-            System.out.println("- " + entry.getKey() + " (Quantity: " + entry.getValue() + ")");
+            //System.out.println("- " + entry.getKey() + " (Quantity: " + entry.getValue() + ")");
+            outputstr += "\n"+"- " + entry.getKey() + " (Quantity: " + entry.getValue() + ")";
         }
-        System.out.println("Total Quantity: " + totalQuantity);
-        System.out.println("\u001B[32mModel quantities updated successfully.\u001B[0m");
-        System.out.println("\u001B[32mStock In recorded.\u001B[0m");
-        
+        //System.out.println("Total Quantity: " + totalQuantity);
+        //System.out.println("\u001B[32mModel quantities updated successfully.\u001B[0m");
+        //System.out.println("\u001B[32mStock In recorded.\u001B[0m");
+
         // Generate receipt
         String receiptFile = Methods.generateReceipt("Stock In", dateStr, timeStr, fromOutletId, fromOutletName, 
                                               currentOutletId, toOutletName, modelsReceived, totalQuantity, employeeName);
-        System.out.println("Receipt generated: " + receiptFile);
+        //System.out.println("Receipt generated: " + receiptFile);
+        JOptionPane.showMessageDialog(null,
+                "Models Received: "
+                        + outputstr
+                        + "\nTotal Quantity: " + totalQuantity
+                        + "\nModel quantities updated successfully."
+                        + "\nStock In recorded."
+                        + "\nReceipt generated: " + receiptFile, null, JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void stockOut(Scanner input, String currentOutletId, String employeeName) {

@@ -1,0 +1,31 @@
+
+=== Stock In ===
+Date: 2026-01-11
+Time: 10:04 a.m.
+From: C61 (MidValley)
+To: C60 (Kuala Lumpur City Centre)
+Models Received:
+- DW2300-1 (Quantity: 1)
+- DW2400-1 (Quantity: 1)
+Total Quantity: 2
+Employee in Charge: Che Ku Amir
+
+=== Stock In ===
+Date: 2026-01-11
+Time: 10:34 a.m.
+From: C62 (Sunway Velocity)
+To: C60 (Kuala Lumpur City Centre)
+Models Received:
+- DW2300-1 (Quantity: 2)
+Total Quantity: 2
+Employee in Charge: Che Ku Amir
+
+=== Stock In ===
+Date: 2026-01-11
+Time: 10:50 a.m.
+From: C69 (MyTown)
+To: C60 (Kuala Lumpur City Centre)
+Models Received:
+- DW2300-1 (Quantity: 1)
+Total Quantity: 1
+Employee in Charge: Che Ku Amir
