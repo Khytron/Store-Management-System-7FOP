@@ -1,41 +1,57 @@
 # Store Management System
-A Java-based store operation management system developed by Group 7.
+A Java-based store operation management system developed by Group 7 OCC1.
 
 ## Features
-- Login system with role-based access control (Manager/Owner vs Full-time/Part-time)
-- Employee registration (Manager/Owner only)
-- Search stock information across all outlets
-- Perform stock count with mismatch detection
-- Stock In - receive inventory from other outlets or HQ
-- Stock Out - transfer inventory to other outlets or HQ
-- Auto-generated receipts for stock transactions
+- **Role-Based Access Control:** Secure login system distinguishing between Employers (Managers/Owners) and Employees.
+- **Inventory Management:** 
+  - Search stock information across all outlets.
+  - Perform physical stock counts with automated mismatch detection.
+  - Stock In/Out: Transfer inventory between outlets or receive from HQ.
+- **Sales Tracking:**
+  - Record new sales transactions.
+  - Search and view detailed sales history.
+  - Advanced filtering and sorting of sales data by date, amount, and customer.
+- **Employee Management:**
+  - Register new employees (Employer only).
+  - Track employee attendance (Clock In/Clock Out).
+  - View attendance history for specific employees or today's outlet staff.
+  - Performance Metrics: Analyze sales performance and generate rankings.
+- **Data Integrity:**
+  - Automated receipt generation for both sales and stock movements.
+  - Persistent storage using CSV databases.
+  - GUI-enhanced interaction using Java Swing (JOptionPane).
 
 ## Project Structure
 ```
 Store-Management-System-7FOP/
 ├── src/
-│   ├── model/          # Data models
+│   ├── model/                  # Data models
 │   │   ├── User.java           # Base user class
-│   │   ├── Employee.java       # Employee model
-│   │   ├── Employer.java       # Employer model
-│   │   ├── Model.java          # Product model with stock tracking
+│   │   ├── Employee.java       # Employee data model
+│   │   ├── Employer.java       # Employer/Manager data model
+│   │   ├── Model.java          # Product/Stock tracking model
 │   │   ├── Outlet.java         # Store outlet model
 │   │   ├── Sales.java          # Sales transaction model
-│   │   └── Attendance.java     # Attendance tracking model
-│   ├── service/        # Business logic
-│   │   ├── UserManager.java    # Login, logout, employee registration
-│   │   └── StockManager.java   # Stock search, count, in/out operations
-│   ├── util/           # Utility classes
+│   │   └── Attendance.java     # Attendance record model
+│   ├── service/                # Business logic
+│   │   ├── UserManager.java    # Authentication & employee registration
+│   │   ├── StockManager.java   # Inventory & stock operations
+│   │   ├── SalesManager.java   # Sales recording & history analytics
+│   │   ├── AttendanceManager.java # Clock In/Out & history viewing
+│   │   ├── EditManager.java    # Data modification services
+│   │   └── PerformanceManager.java # Performance metrics & rankings
+│   ├── util/                   # Utility classes
 │   │   ├── FilePath.java       # CSV file path constants
-│   │   └── Methods.java        # CSV reading utilities
-│   └── StoreManagementApp.java # Main entry point
-├── csv_database/       # CSV data storage
-│   ├── employee.csv    # Employee credentials and info
-│   ├── attendance.csv  # Attendance records
-│   ├── outlet.csv      # Outlet information (C60-C69)
-│   ├── model.csv       # Product models with stock per outlet
-│   └── sales.csv       # Sales transactions
-├── receipts/           # Auto-generated transaction receipts
+│   │   └── Methods.java        # Shared helper utilities
+│   └── StoreManagementApp.java # Application entry point
+├── csv_database/               # CSV persistent storage
+│   ├── employee.csv            # Credentials and roles
+│   ├── attendance.csv          # Attendance logs
+│   ├── outlet.csv              # Outlet identification data
+│   ├── model.csv               # Inventory levels and prices
+│   ├── sales.csv               # Sales transaction logs
+│   └── employee-performance-metrics.csv # Exported performance data
+├── receipts/                   # Auto-generated transaction receipts (.txt)
 └── README.txt
 ```
 
@@ -43,42 +59,46 @@ Store-Management-System-7FOP/
 
 ### Manager/Owner Menu
 1. Register New Employee
-2. Search Stock Info
-3. Perform Stock Count
-4. Stock In
-5. Stock Out
-6. Logout
+2. Search Stock Information
+3. Search Sales Information
+4. Filter/Sort Sales History
+5. Record New Sale
+6. Perform Stock Count
+7. Stock In
+8. Stock Out
+9. Edit Information
+10. Employee Performance Metrics
+11. Clock In/Clock Out
+12. View Attendance
+13. Logout
 
 ### Full-time/Part-time Employee Menu
-1. Search Stock Info
-2. Perform Stock Count
-3. Stock In
-4. Stock Out
-5. Logout
+1. Search Stock Information
+2. Search Sales Information
+3. Filter/Sort Sales History
+4. Record New Sale
+5. Perform Stock Count
+6. Stock In
+7. Stock Out
+8. Edit Information
+9. Clock In/Clock Out
+10. Logout
 
 ## How to Run
-1. Navigate to the `src` folder
-2. Compile: `javac -d ../out StoreManagementApp.java model/*.java service/*.java util/*.java`
-3. Navigate to project root and run: `java -cp out StoreManagementApp`
-
-Or simply run from `src` folder:
-```
-javac StoreManagementApp.java model/*.java service/*.java util/*.java
-java StoreManagementApp
-```
+1. Ensure Java JDK is installed on your system.
+2. Navigate to the `src` folder.
+3. Compile the project:
+   ```
+   javac -d ../out StoreManagementApp.java model/*.java service/*.java util/*.java
+   ```
+4. Run the application from the project root:
+   ```
+   java -cp out StoreManagementApp
+   ```
 
 ## Default Login
-Check `csv_database/employee.csv` for available user credentials.
-Type "exit" as User ID or Password to terminate the program.
-
-## Git Commands Reference
-```
-git status                          # Check repo status
-git add .                           # Stage all changes
-git commit -m "your message"        # Commit changes
-git push                            # Push to remote
-git pull                            # Pull latest changes
-```
+- Check `csv_database/employee.csv` for available user IDs and passwords.
+- Type "exit" as User ID or Password during login to terminate the program.
 
 ## Contributors
-- Group 7 Members
+- Group 7 Members (OCC1)
