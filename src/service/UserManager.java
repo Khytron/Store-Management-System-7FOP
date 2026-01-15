@@ -85,15 +85,6 @@ public class UserManager {
     public User attemptLogin(Scanner input){
 
         // User input
-        /*
-        System.out.println("Press \u001B[31mCtrl+C\u001B[0m to exit the program.\n");
-        System.out.println("=== Employee Login ===");
-        
-        System.out.print("Enter User ID: ");
-        String userId = input.next();
-        System.out.print("Enter Password: ");
-        String userPassword = input.next();
-         */
         String userRole = "";
         String userName = "";
 
@@ -136,7 +127,6 @@ public class UserManager {
 
         if (userValid){
             // Logging in
-            //System.out.println("\nLogin \u001B[32mSuccessful!\u001B[0m");
 
 
             User newUser = new User(userId, userName, userRole, userPassword);
@@ -146,7 +136,6 @@ public class UserManager {
 
             
         } else {
-            //System.out.println("\nLogin \u001B[31mFailed : Invalid User ID or Password\u001B[0m\n");
             JOptionPane.showMessageDialog(null,"Login Failed : Invalid User ID or Password", "Login Failed", JOptionPane.WARNING_MESSAGE);
             return null;
         }
@@ -155,26 +144,9 @@ public class UserManager {
     }
 
     public void registerNewEmployee(Scanner input){
-        /*System.out.println("=== Register New Employee ===");
-        System.out.print("Enter Employee ID: ");
-        String employeeId = input.next();
-        input.nextLine();
-         */
         String employeeId = Methods.showInputDialog("Enter Employee ID: ");
-        /*
-        System.out.print("Enter Employee Name: ");
-        String employeeName = input.nextLine();
-         */
         String employeeName = Methods.showInputDialog("Enter Employee Name: ");
-        /*
-        System.out.print("Set Role: ");
-        String employeeRole = input.next();
-         */
         String employeeRole = Methods.showInputDialog("Set Role: ");
-        /*
-        System.out.print("Set Password: ");
-        String employeePassword = input.next();
-         */
         String employeePassword = Methods.showInputDialog("Set Password: ");
         
         String[] newEmployeeData = {employeeId, employeeName, employeeRole, employeePassword};
@@ -183,7 +155,6 @@ public class UserManager {
         try(PrintWriter writer = new PrintWriter(new FileWriter(FilePath.employeeDataPath, true))){
             writer.println(String.join(",", newEmployeeData));
             
-            //System.out.println("\nEmployee \u001B[32mSuccessfully Registered! \u001B[0m");
             JOptionPane.showMessageDialog(null, "Successfully Registered!", null, JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());

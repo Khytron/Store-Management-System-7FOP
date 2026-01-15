@@ -21,11 +21,6 @@ public class PerformanceManager {
     }
 
     public void viewPerformanceMetrics(Scanner input) {
-        /* System.out.println("\n=== Employee Performance Metrics ===");
-        System.out.print("Enter Start Date (dd-MM-yy): ");
-        String startDate = input.nextLine();
-        System.out.print("Enter End Date (dd-MM-yy): ");
-        String endDate = input.nextLine(); */
         String startDate = Methods.showInputDialog("Enter Start Date (dd-MM-yy): ", "Employee Performance Metrics");
         String endDate = Methods.showInputDialog("Enter End Date (dd-MM-yy): ", "Employee Performance Metrics");
 
@@ -33,7 +28,6 @@ public class PerformanceManager {
         Map<String, int[]> performanceMap = calculatePerformance(startDate, endDate);
 
         if (performanceMap.isEmpty()) {
-            //System.out.println("\nNo sales records found for the specified period.");
             JOptionPane.showMessageDialog(null, "No sales records found for the specified period.", null, JOptionPane.INFORMATION_MESSAGE);
             return;
         }
@@ -48,12 +42,6 @@ public class PerformanceManager {
         performanceList.sort((a, b) -> Integer.compare(b.getValue()[0], a.getValue()[0]));
 
         // Display results
-        /*
-        System.out.println("\nPerformance Report (" + endDate + " to " + endDate + ")");
-        System.out.println("----------------------------------------------------");
-        System.out.printf("%-5s %-25s %-15s %-15s\n", "Rank", "Employee Name", "Total Sales", "Transactions");
-        System.out.println("----------------------------------------------------");
-         */
         String outputstr = "<html><pre>Performance Report (" + startDate + " to " + endDate + ")"
                 + "<br>----------------------------------------------------";
         outputstr += String.format("<br>%-5s %-25s %-15s %-15s\n", "Rank", "Employee Name", "Total Sales", "Transactions");
@@ -66,7 +54,6 @@ public class PerformanceManager {
             int transactionCount = entry.getValue()[1];
             String employeeName = employeeNames.getOrDefault(employeeId, employeeId);
 
-            //System.out.printf("%-5d %-25s RM%-13d %-15d\n", rank, employeeName, totalSales, transactionCount);
             outputstr += String.format("<br>%-5d %-25s RM%-13d %-15d\n", rank, employeeName, totalSales, transactionCount);
             rank++;
         }
@@ -76,7 +63,6 @@ public class PerformanceManager {
 
         // Save to CSV
         savePerformanceToCSV(performanceList, employeeNames);
-        //System.out.println("\nPerformance data saved to employee-performance-metrics.csv");
         outputstr += "<br>Performance data saved to employee-performance-metrics.csv</pre></html>";
 
         //Set font to a monospace font

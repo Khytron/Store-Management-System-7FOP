@@ -39,13 +39,7 @@ public class SalesManager {
         String csvDateStr = now.format(csvDateFT);
         String timeStr = now.format(timeFT).toLowerCase().replace("am", "a.m.").replace("pm", "p.m.");
         
-        /*System.out.println("Date: " + dateStr);
-        System.out.println("Time: " + timeStr);
-        System.out.print("Customer Name: ");
-        String customerName = input.nextLine(); */
         String customerName = Methods.showInputDialog("Date: " + dateStr + "\n Time: " + timeStr + "\nCustomer Name: ");
-        
-        //System.out.println("Item(s) Purchased:");
         
         // Map to store model -> [quantity, unitPrice]
         Map<String, int[]> itemsPurchased = new LinkedHashMap<>();
@@ -68,8 +62,6 @@ public class SalesManager {
         }
         
         while (true) {
-            //System.out.print("Enter Model: ");
-            //String modelName = input.nextLine();
             String modelName = Methods.showInputDialog("Enter Model: "); //put title Item(s) Purchased
             
             // Find model and get price
@@ -89,36 +81,29 @@ public class SalesManager {
             }
             
             if (unitPrice == -1) {
-                //System.out.println("Model not found. Please try again.");
                 JOptionPane.showMessageDialog(null,"Model not found, please try again.", null, JOptionPane.WARNING_MESSAGE);
                 continue;
             }
             
-            //System.out.print("Enter Quantity: ");
 
             int quantity;
             try {
-                //quantity = Integer.parseInt(input.nextLine());
                 quantity = Integer.parseInt(Methods.showInputDialog("Enter Quantity: "));
             } catch (NumberFormatException e) {
-                //System.out.println("Invalid quantity.");
                 JOptionPane.showMessageDialog(null, "Invalid quantity.", null, JOptionPane.WARNING_MESSAGE);
                 continue;
             }
             
             if (quantity <= 0) {
-                //System.out.println("Invalid quantity.");
                 JOptionPane.showMessageDialog(null, "Invalid quantity.", null, JOptionPane.WARNING_MESSAGE);
                 continue;
             }
             
             if (quantity > availableStock) {
-                //System.out.println("Insufficient stock. Only " + availableStock + " available.");
                 JOptionPane.showMessageDialog(null, "Insufficient stock. Only " + availableStock + " available.", null, JOptionPane.WARNING_MESSAGE);
                 continue;
             }
             
-            //System.out.println("Unit Price: RM" + unitPrice);
             
             // Add to items purchased
             if (itemsPurchased.containsKey(modelName)) {
@@ -131,8 +116,6 @@ public class SalesManager {
             quantities.add(quantity);
             subtotal += quantity * unitPrice;
             
-            //System.out.print("Are there more items purchased? (Y/N): ");
-            //String more = input.nextLine().trim().toUpperCase();
             String more = Methods.showInputDialog("Unit Price: RM" + unitPrice + "\n Are there more items purchased? (Y/N): ");
             more = more.trim().toUpperCase();
             if (!more.equals("Y")) {
@@ -141,17 +124,12 @@ public class SalesManager {
         }
         
         if (itemsPurchased.isEmpty()) {
-            //System.out.println("No items added. Sale cancelled.");
             JOptionPane.showMessageDialog(null, "No items added. Sale cancelled.", null, JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        //System.out.print("\nEnter transaction method: ");
-        //String transactionMethod = input.nextLine();
         String transactionMethod = Methods.showInputDialog("\nEnter transaction method: ");
         
-        //System.out.println("Subtotal: RM" + subtotal);
-        //JOptionPane'd below
         
         // Update stock in model.csv
         updateStockAfterSale(itemsPurchased, outletId);
@@ -165,21 +143,16 @@ public class SalesManager {
         // Update employee performance metrics
         updatePerformanceMetrics(employeeId, employeeName, subtotal);
         
-        /*System.out.println("\nTransaction \u001B[32msuccessful.\u001B[0m");
-        System.out.println("Sale recorded \u001B[32msuccessfully.\u001B[0m");
-        System.out.println("Model quantities updated \u001B[32msuccessfully.\u001B[0m"); */
 
         
         // Generate receipt
         String receiptFile = Methods.generateSalesReceipt(dateStr, timeStr, customerName, 
                                                            itemsPurchased, transactionMethod, subtotal, employeeName);
-        //System.out.println("Receipt generated: " + receiptFile);
         JOptionPane.showMessageDialog(null, "Subtotal: RM" + subtotal
                 + "\nTransaction successful."
                 + "\nSale recorded successfully."
                 + "\nModel quantities updated successfully."
                 + "\nReceipt generated: " + receiptFile, null, JOptionPane.INFORMATION_MESSAGE);
-        //JOptionPane.showMessageDialog(null, "Receipt generated: " + receiptFile, null, JOptionPane.INFORMATION_MESSAGE);
     }
     
     private String generateNextSaleId() {
@@ -268,17 +241,12 @@ public class SalesManager {
     }
 
     public void searchSalesInfo(Scanner input) {
-        //System.out.println("\n=== Search Sales Information ===");
-        //System.out.print("Search keyword: ");
-        //String searchKeyword = input.next();
         String searchKeyword = Methods.showInputDialog("Search keyword: ");
         this.keyword = searchKeyword;
-        //System.out.println("Searching...");
 
         if (findSales()) {
             displaySalesInfo();
         } else {
-            //System.out.println("No matching sales record found.");
             JOptionPane.showMessageDialog(null, "No matching sales record found", null, JOptionPane.WARNING_MESSAGE);
         }
     }
@@ -324,18 +292,6 @@ public class SalesManager {
 
     private void displaySalesInfo(){
         for(String[] sale : salesData){
-            /*
-            System.out.println("\nSales Record Found:");
-            System.out.println("Date: " + sale[7]);
-            System.out.println("Time: " + sale[8]);
-            System.out.println("Customer: " + sale[4]);
-            System.out.println("Item(s): " + sale[2]);
-            System.out.println("Quantity: " + sale[3]);
-            System.out.println("Total: RM" + sale[6]);
-            System.out.println("Transaction Method: " + sale[5]);
-            System.out.println("Employee: " + getEmployeeName(sale[1]));
-            System.out.println("Status: Transaction Verified.");
-             */
             JOptionPane.showMessageDialog(null, "Sales Record Found:" +
                     "\nDate: " + sale[7] +
                     "\nTime: " + sale[8] +
@@ -403,20 +359,12 @@ public class SalesManager {
     }
 
     public void filterAndSortSalesHistory(Scanner input) {
-        /*
-        System.out.println("\n=== Filter and Sort Sales History ===");
-        System.out.print("Enter Start Date (dd-MM-yy): ");
-        String startDate = input.nextLine();
-        System.out.print("Enter End Date (dd-MM-yy): ");
-        String endDate = input.nextLine();
-         */
         String startDate = Methods.showInputDialog("Enter Start Date (dd-MM-yy): ");
         String endDate = Methods.showInputDialog("Enter End Date (dd-MM-yy): ");
 
         List<List<String>> allSalesData = Methods.readCsvFile(FilePath.salesDataPath);
         
         if (allSalesData.size() <= 1) {
-            //System.out.println("No sales records found.");
             JOptionPane.showMessageDialog(null, "No sales records found.", null, JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -434,7 +382,6 @@ public class SalesManager {
         }
 
         if (filteredSales.isEmpty()) {
-            //System.out.println("No sales records found for the specified date range.");
             JOptionPane.showMessageDialog(null, "No sales records found for the specified date range.", null, JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -450,17 +397,6 @@ public class SalesManager {
         }
 
         // Ask for sorting preference
-        /*
-        System.out.println("\nSort by:");
-        System.out.println("1. Date (Ascending)");
-        System.out.println("2. Date (Descending)");
-        System.out.println("3. Amount (Lowest to Highest)");
-        System.out.println("4. Amount (Highest to Lowest)");
-        System.out.println("5. Customer Name (A-Z)");
-        System.out.println("6. Customer Name (Z-A)");
-        System.out.print("Choice: ");
-        String sortChoice = input.nextLine();
-         */
         String sortChoice = Methods.showInputDialog("Sort by:" +
                         "\n1. Date (Ascending)" +
                         "\n2. Date (Descending)" +
@@ -499,19 +435,10 @@ public class SalesManager {
                 filteredSales.sort((a, b) -> b[4].compareToIgnoreCase(a[4]));
                 break;
             default:
-                //System.out.println("Invalid choice. Displaying unsorted.");
                 JOptionPane.showMessageDialog(null, "Invalid choice. Displaying unsorted...", null, JOptionPane.WARNING_MESSAGE);
         }
 
         // Display results in tabular format
-        /*
-        System.out.println("\n================================================================================");
-        System.out.println("                    Sales History (" + startDate + " to " + endDate + ")");
-        System.out.println("================================================================================");
-        System.out.printf("%-8s %-12s %-20s %-15s %-10s %-10s\n", 
-                          "SaleID", "Date", "Customer", "Model(s)", "Amount", "Method");
-        System.out.println("--------------------------------------------------------------------------------");
-         */
         String OutputText1 = "<html><pre><br>================================================================================"
                 + "<br>                    Sales History (" + startDate + " to " + endDate + ")"
                 + "<br>================================================================================";
@@ -529,15 +456,9 @@ public class SalesManager {
             String amount = "RM" + sale[6];
             String method = sale[5].length() > 8 ? sale[5].substring(0, 8) + ".." : sale[5];
 
-            //System.out.printf("%-8s %-12s %-20s %-15s %-10s %-10s\n", saleId, date, customer, models, amount, method);
             OutputText1 += String.format("<br>%-8s %-12s %-20s %-15s %-10s %-10s", saleId, date, customer, models, amount, method);
         }
-        /*
-        System.out.println("--------------------------------------------------------------------------------");
-        System.out.println("Total Transactions: " + filteredSales.size());
-        System.out.println("Total Cumulative Sales: RM" + totalCumulativeSales);
-        System.out.println("================================================================================");
-         */
+
         OutputText1 += "<br>--------------------------------------------------------------------------------" +
                 "<br>Total Transactions: " + filteredSales.size() +
                 "<br>Total Cumulative Sales: RM" + totalCumulativeSales +

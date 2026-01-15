@@ -22,19 +22,13 @@ public class AttendanceManager {
         public void clockIn(String employeeId, String outletCode) {
             // Check if employee already clocked in without clocking out
             if (hasOpenClockIn(employeeId)) {
-                //System.out.println("\nYou have already clocked in. Please clock out first.");
                 JOptionPane.showMessageDialog(null,"You have already clocked in. Please clock out first.", null, JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
             Attendance record = new Attendance(employeeId, outletCode, "Clock In");
             attendanceRecords.add(record);
             saveAttendanceToFile();
-            /*
-            System.out.println("\n=== Attendance Clock In ===");
-            System.out.println("Employee ID: " + record.getEmployeeId());
-            System.out.println("Outlet: " + record.getOutletCode());
-            System.out.println("\nClock In \u001B[32mSuccessful\u001B[0m!\nDate: " + record.getDate()+ "\nTime: " + record.getTime());
-             */
+            
             JOptionPane.showMessageDialog(null,
                     "Employee ID: " + record.getEmployeeId()
                     + "\nOutlet: " + record.getOutletCode()
@@ -46,7 +40,6 @@ public class AttendanceManager {
         public void clockOut(String employeeId, String outletCode) {
             // Check if employee has clocked in first
             if (!hasOpenClockIn(employeeId)) {
-                //System.out.println("\nYou haven't clocked in yet. Please clock in first.");
                 JOptionPane.showMessageDialog(null,"You haven't clocked in yet. Please clock in first.", null, JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
@@ -54,13 +47,6 @@ public class AttendanceManager {
             Attendance record = new Attendance(employeeId, outletCode, "Clock Out");
             attendanceRecords.add(record);
             saveAttendanceToFile();
-            /*
-            System.out.println("\n=== Attendance Clock Out ===");
-            System.out.println("Employee ID: " + record.getEmployeeId());
-            System.out.println("Outlet: " + record.getOutletCode());
-            System.out.println("\nClock Out \u001B[32mSuccessful\u001B[0m!\nDate: " + record.getDate()+ "\nTime: " + record.getTime());
-            System.out.println("Total Hours Worked: " + Methods.timeDifference(record.getTime(),clockInRecord.getTime()));
-             */
 
             JOptionPane.showMessageDialog(null,
                     "Employee ID: " + record.getEmployeeId()
@@ -156,22 +142,13 @@ public class AttendanceManager {
 
         // View attendance for a specific employee
         public void viewAttendance(Scanner input) {
-            //System.out.print("\nEnter Employee ID: ");
-            //String employeeId = input.nextLine();
             String employeeId = Methods.showInputDialog("Enter Employee ID: ");
 
-            //System.out.println("\n=== Attendance Records for " + employeeId + " ===");
             String outputstr = "=== Attendance Records for " + employeeId + " ===";
             boolean found = false;
 
             for (Attendance att : attendanceRecords) {
                 if (att.getEmployeeId().equals(employeeId)) {
-                    /* System.out.printf("%s %s - %s - %s\n",
-                            att.getDate(),
-                            att.getTime(),
-                            att.getStatus(),
-                            att.getOutletCode()
-                    ); */
                     outputstr += String.format("\n%s %s - %s - %s",
                             att.getDate(),
                             att.getTime(),
@@ -183,7 +160,6 @@ public class AttendanceManager {
             }
 
             if (!found) {
-                //System.out.println("No attendance records found.");
                 JOptionPane.showMessageDialog(null, "No attendance records found.", null, JOptionPane.INFORMATION_MESSAGE);
             }
             else JOptionPane.showMessageDialog(null, outputstr, null, JOptionPane.INFORMATION_MESSAGE);
@@ -191,7 +167,6 @@ public class AttendanceManager {
 
         // View today's attendance for current outlet
         public void viewTodayAttendance(String outletCode) {
-            //System.out.println("\n=== Today's Attendance for Outlet " + outletCode + " ===");
             String outputstr = "=== Today's Attendance for Outlet " + outletCode + " ===";
 
             String today = java.time.LocalDate.now()
@@ -201,11 +176,6 @@ public class AttendanceManager {
 
             for (Attendance att : attendanceRecords) {
                 if (att.getOutletCode().equals(outletCode) && att.getDate().equals(today)) {
-                    /*System.out.printf("%s - %s - %s\n",
-                            att.getTime(),
-                            att.getEmployeeId(),
-                            att.getStatus()
-                    );*/
                     outputstr += String.format("\n%s - %s - %s",
                             att.getTime(),
                             att.getEmployeeId(),
@@ -216,7 +186,6 @@ public class AttendanceManager {
             }
 
             if (!found) {
-                //System.out.println("No attendance records for today.");
                 JOptionPane.showMessageDialog(null, "No attendance records for today.", null, JOptionPane.INFORMATION_MESSAGE);
             }
             else JOptionPane.showMessageDialog(null, outputstr, null, JOptionPane.INFORMATION_MESSAGE);
