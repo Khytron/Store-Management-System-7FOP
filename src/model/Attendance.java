@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+// Represents a single attendance record (Clock In or Clock Out) for an employee.
+// Automatically captures the date and time upon creation.
 public class Attendance {
     // Attributes
     private String date;

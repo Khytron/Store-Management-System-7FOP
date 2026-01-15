@@ -1,4 +1,6 @@
 package util;
+
+// Stores file paths for all CSV databases and output folders used in the application.
 public class FilePath {
     public static final String employeeDataPath = "csv_database/employee.csv";
     public static final String outletDataPath = "csv_database/outlet.csv";

@@ -24,6 +24,7 @@ import util.Methods;
 import javax.swing.*;
 
 
+// Manages stock inventory, including loading data, searching, performing stock counts, and handling stock in/out transactions.
 public class StockManager {
     private String userSearch;
     private int unitPrice;

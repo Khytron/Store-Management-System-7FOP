@@ -3,6 +3,8 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+// Represents a product model (item) sold in the store.
+// Tracks the price and the stock quantity available in each outlet.
 public class Model {
     // Attributes
     private String modelId;

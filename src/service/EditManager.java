@@ -12,6 +12,7 @@ import util.Methods;
 
 import javax.swing.*;
 
+// Handles editing operations for stock information and past sales records.
 public class EditManager {
 
     public EditManager() {

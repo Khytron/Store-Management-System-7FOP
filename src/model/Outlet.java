@@ -1,5 +1,6 @@
 package model;
 
+// Represents a retail outlet or store branch.
 public class Outlet {
     private String outletId;
     private String outletName;

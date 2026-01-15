@@ -5,6 +5,8 @@ import java.util.List;
 import util.FilePath;
 import util.Methods;
 
+// Represents an employer/manager.
+// Maintains a static list of all employer IDs to distinguish them from regular employees during login.
 public class Employer {
     // Attributes
     private String employerId;
@@ -13,6 +15,7 @@ public class Employer {
     private String employerPassword;
     public static List<String> employerIds = new ArrayList<>();
     
+    // Static block to load employer IDs once when the class is loaded
     static {
         loadEmployerIds();
     }

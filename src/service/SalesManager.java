@@ -21,6 +21,7 @@ import util.Methods;
 
 import javax.swing.*;
 
+// Manages sales transactions, including recording new sales, searching history, and filtering records.
 public class SalesManager {
     private String keyword;
     private List<Sales> salesData = new ArrayList<>();

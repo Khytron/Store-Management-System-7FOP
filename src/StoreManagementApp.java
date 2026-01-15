@@ -12,13 +12,15 @@ import util.Methods;
 import javax.swing.JOptionPane;
 
 
-
+// Main application class for the Store Management System.
+// Handles the main execution loop, user login, and navigation between different menus based on user roles.
 class StoreManagementApp {
  
     static Scanner input = new Scanner(System.in);
     
     public static void main(String[] args){
 
+        // Initialize service managers
         UserManager userManager = UserManager.getInstance();
         StockManager stockManager = new StockManager();
         SalesManager salesManager = new SalesManager();
@@ -53,10 +55,13 @@ class StoreManagementApp {
                 
             }
 
+            // Load the outlet associated with the logged-in user
             currentOutlet = stockManager.loadOutletFromId(loggedInUser.getUserId().substring(0,3));
             
 
+            // Display menu based on user role
             if (loggedInUser.isEmployer){
+                // Employer Menu Loop
                 String choice = "";
                 while (true) {
                     choice = Methods.showInputDialog("\nPick One Option\n1. Register New Employee\n2. Search Stock Information\n3. Search Sales Information\n4. Filter/Sort Sales History\n5. Record New Sale\n6. Perform Stock Count\n7. Stock In\n8. Stock Out\n9. Edit Information\n10. Employee Performance Metrics\n11. Clock In/Clock Out\n12. View Attendance \n13. Logout \n\nYour choice: ", "Menu");
@@ -125,6 +130,7 @@ class StoreManagementApp {
                 
             } else // User is employee
             {
+                // Employee Menu Loop
                 String choice = "";
                 while (true){
                     choice = Methods.showInputDialog("\nPick One Option\n1. Search Stock Information \n2. Search Sales Information\n3. Filter/Sort Sales History\n4. Record New Sale\n5. Perform Stock Count\n6. Stock In\n7. Stock Out\n8. Edit Information\n9. Clock In/Clock Out\n10. Logout \n\nYour choice: ");

@@ -10,6 +10,7 @@ import util.Methods;
 
 import javax.swing.*;
 
+// Manages employee attendance records, including clocking in/out and viewing history.
 public class AttendanceManager {
         private List<Attendance> attendanceRecords;
 

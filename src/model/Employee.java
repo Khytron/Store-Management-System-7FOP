@@ -1,4 +1,7 @@
 package model;
+
+// Represents an employee with basic details and credentials.
+// Used for storing data loaded from employee.csv.
 public class Employee {
     // Attributes
     private String employeeId;

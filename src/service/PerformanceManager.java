@@ -15,6 +15,8 @@ import util.Methods;
 
 import javax.swing.*;
 
+// Calculates and displays employee performance metrics based on sales data.
+// Generates rankings and exportable reports.
 public class PerformanceManager {
 
     public PerformanceManager() {

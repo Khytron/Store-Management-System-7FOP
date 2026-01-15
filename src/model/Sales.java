@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+// Represents a single sales transaction record.
+// Stores details about the sale, including item, price, customer, and employee.
 public class Sales {
     // Attributes
     private String saleId;

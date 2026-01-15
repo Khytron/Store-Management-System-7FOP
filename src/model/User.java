@@ -2,6 +2,8 @@ package model;
 
 import util.Methods;
 
+// Base class for all users in the system (Employees and Employers).
+// Handles authentication status and role determination.
 public class User {
     //Attributes
     private String userId;
@@ -20,6 +22,7 @@ public class User {
         this.userPassword = userPassword;
     }
 
+    // Sets the logged-in status to true and determines if the user is an employer or employee based on their role.
     public void login(){
         if (!this.isLogged && this.userId != null) { 
             this.isLogged = true; 

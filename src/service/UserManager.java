@@ -13,6 +13,8 @@ import util.Methods;
 
 import javax.swing.JOptionPane;
 
+// Manages user authentication (login/logout) and registration of new employees.
+// Implements the Singleton pattern to ensure a single instance manages the session.
 public class UserManager {
     private User loggedInUser;
 

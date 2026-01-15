@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 
+// Utility class containing shared helper methods for GUI input, file I/O, receipt generation, and time calculations.
 public class Methods {
     // Input dialog without Cancel button - returns empty string if closed
     public static String showInputDialog(String message) {
