@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import model.Sales;
 import util.FilePath;
 import util.Methods;
 
@@ -22,7 +23,7 @@ import javax.swing.*;
 
 public class SalesManager {
     private String keyword;
-    private List<String[]> salesData = new ArrayList<>();
+    private List<Sales> salesData = new ArrayList<>();
 
     public SalesManager() {
     }
@@ -264,8 +265,22 @@ public class SalesManager {
         for (List<String> row : data) {
             for (String field : row) {
                 if (field.toLowerCase().contains(this.keyword.toLowerCase())) {
-                    salesData.add(row.toArray(new String[0]));
-                    isFound = true;
+                    if (row.size() >= 9) {
+                        Sales sale = new Sales(
+                            row.get(0), // saleId
+                            row.get(1), // employeeId
+                            "",         // outletCode
+                            row.get(2), // modelName
+                            row.get(3), // modelQuantity
+                            row.get(4), // customerName
+                            row.get(5), // transactionMethod
+                            row.get(6)  // totalPrice
+                        );
+                        sale.setDate(row.get(7));
+                        sale.setTime(row.get(8));
+                        salesData.add(sale);
+                        isFound = true;
+                    }
                     break;
                 }
             }
@@ -291,16 +306,16 @@ public class SalesManager {
     }
 
     private void displaySalesInfo(){
-        for(String[] sale : salesData){
+        for(Sales sale : salesData){
             JOptionPane.showMessageDialog(null, "Sales Record Found:" +
-                    "\nDate: " + sale[7] +
-                    "\nTime: " + sale[8] +
-                    "\nCustomer: " + sale[4] +
-                    "\nItem(s): " + sale[2] +
-                    "\nQuantity: " + sale[3] +
-                    "\nTotal: RM" + sale[6] +
-                    "\nTransaction Method: " + sale[5] +
-                    "\nEmployee: " + getEmployeeName(sale[1]) +
+                    "\nDate: " + sale.getDate() +
+                    "\nTime: " + sale.getTime() +
+                    "\nCustomer: " + sale.getCustomerName() +
+                    "\nItem(s): " + sale.getModelName() +
+                    "\nQuantity: " + sale.getModelQuantity() +
+                    "\nTotal: RM" + sale.getTotalPrice() +
+                    "\nTransaction Method: " + sale.getTransactionMethod() +
+                    "\nEmployee: " + getEmployeeName(sale.getEmployeeId()) +
                     "\nStatus: Transaction Verified.")
             ;
         }
@@ -370,13 +385,25 @@ public class SalesManager {
         }
 
         // Filter sales by date range
-        List<String[]> filteredSales = new ArrayList<>();
+        List<Sales> filteredSales = new ArrayList<>();
         for (int i = 1; i < allSalesData.size(); i++) {
             List<String> row = allSalesData.get(i);
             if (row.size() >= 9) {
                 String saleDate = row.get(7);
                 if (isDateInRange(saleDate, startDate, endDate)) {
-                    filteredSales.add(row.toArray(new String[0]));
+                    Sales sale = new Sales(
+                        row.get(0), // saleId
+                        row.get(1), // employeeId
+                        "",         // outletCode
+                        row.get(2), // modelName
+                        row.get(3), // modelQuantity
+                        row.get(4), // customerName
+                        row.get(5), // transactionMethod
+                        row.get(6)  // totalPrice
+                    );
+                    sale.setDate(saleDate);
+                    sale.setTime(row.get(8));
+                    filteredSales.add(sale);
                 }
             }
         }
@@ -388,9 +415,9 @@ public class SalesManager {
 
         // Calculate total cumulative sales
         int totalCumulativeSales = 0;
-        for (String[] sale : filteredSales) {
+        for (Sales sale : filteredSales) {
             try {
-                totalCumulativeSales += Integer.parseInt(sale[6]);
+                totalCumulativeSales += Integer.parseInt(sale.getTotalPrice());
             } catch (NumberFormatException e) {
                 // Skip invalid entries
             }
@@ -409,30 +436,30 @@ public class SalesManager {
         // Sort based on choice
         switch (sortChoice) {
             case "1": // Date Ascending
-                filteredSales.sort((a, b) -> compareDates(a[7], b[7]));
+                filteredSales.sort((a, b) -> compareDates(a.getDate(), b.getDate()));
                 break;
             case "2": // Date Descending
-                filteredSales.sort((a, b) -> compareDates(b[7], a[7]));
+                filteredSales.sort((a, b) -> compareDates(b.getDate(), a.getDate()));
                 break;
             case "3": // Amount Low to High
                 filteredSales.sort((a, b) -> {
-                    int amtA = Integer.parseInt(a[6]);
-                    int amtB = Integer.parseInt(b[6]);
+                    int amtA = Integer.parseInt(a.getTotalPrice());
+                    int amtB = Integer.parseInt(b.getTotalPrice());
                     return Integer.compare(amtA, amtB);
                 });
                 break;
             case "4": // Amount High to Low
                 filteredSales.sort((a, b) -> {
-                    int amtA = Integer.parseInt(a[6]);
-                    int amtB = Integer.parseInt(b[6]);
+                    int amtA = Integer.parseInt(a.getTotalPrice());
+                    int amtB = Integer.parseInt(b.getTotalPrice());
                     return Integer.compare(amtB, amtA);
                 });
                 break;
             case "5": // Customer Name A-Z
-                filteredSales.sort((a, b) -> a[4].compareToIgnoreCase(b[4]));
+                filteredSales.sort((a, b) -> a.getCustomerName().compareToIgnoreCase(b.getCustomerName()));
                 break;
             case "6": // Customer Name Z-A
-                filteredSales.sort((a, b) -> b[4].compareToIgnoreCase(a[4]));
+                filteredSales.sort((a, b) -> b.getCustomerName().compareToIgnoreCase(a.getCustomerName()));
                 break;
             default:
                 JOptionPane.showMessageDialog(null, "Invalid choice. Displaying unsorted...", null, JOptionPane.WARNING_MESSAGE);
@@ -448,13 +475,16 @@ public class SalesManager {
 
 
 
-        for (String[] sale : filteredSales) {
-            String saleId = sale[0];
-            String date = sale[7];
-            String customer = sale[4].length() > 18 ? sale[4].substring(0, 18) + ".." : sale[4];
-            String models = sale[2].length() > 13 ? sale[2].substring(0, 13) + ".." : sale[2];
-            String amount = "RM" + sale[6];
-            String method = sale[5].length() > 8 ? sale[5].substring(0, 8) + ".." : sale[5];
+        for (Sales sale : filteredSales) {
+            String saleId = sale.getSaleId();
+            String date = sale.getDate();
+            String customerName = sale.getCustomerName();
+            String customer = customerName.length() > 18 ? customerName.substring(0, 18) + ".." : customerName;
+            String modelName = sale.getModelName();
+            String models = modelName.length() > 13 ? modelName.substring(0, 13) + ".." : modelName;
+            String amount = "RM" + sale.getTotalPrice();
+            String transactionMethod = sale.getTransactionMethod();
+            String method = transactionMethod.length() > 8 ? transactionMethod.substring(0, 8) + ".." : transactionMethod;
 
             OutputText1 += String.format("<br>%-8s %-12s %-20s %-15s %-10s %-10s", saleId, date, customer, models, amount, method);
         }
